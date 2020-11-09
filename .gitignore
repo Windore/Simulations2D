@@ -1,0 +1,9 @@
+# Ignore the project intendted for testing the framework
+TestProject/
+
+# Ignore binaries etc
+bin/
+obj/
+
+# Ignore visual studio files
+.vs/
