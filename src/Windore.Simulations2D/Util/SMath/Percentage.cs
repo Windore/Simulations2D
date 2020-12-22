@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simulations2D.Util.SMath
+namespace Windore.Simulations2D.Util.SMath
 {
     /// <summary>
     /// Represents a percentage amount.

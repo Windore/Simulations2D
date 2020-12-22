@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Simulations2D.Util.SMath
+namespace Windore.Simulations2D.Util.SMath
 {
     /// <summary>
     /// Collection of useful methods that are not found in the System.Math library

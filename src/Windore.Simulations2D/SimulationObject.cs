@@ -1,9 +1,8 @@
-﻿using Simulations2D.UI;
-using Simulations2D.Util.SMath;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Windore.Simulations2D.UI;
+using Windore.Simulations2D.Util.SMath;
 
-namespace Simulations2D
+namespace Windore.Simulations2D
 {
     /// <summary>
     /// Represents an object in a SimulationScene
@@ -132,19 +131,15 @@ namespace Simulations2D
         public void MoveTowards(Point target, float distance)
         {
             float magnitude = Position.DistanceTo(target);
-            Point newPosition = new Point(0, 0);
             if (magnitude <= distance || magnitude == 0f)
             {
-                newPosition.X = target.X;
-                newPosition.Y = target.Y;
+                Position = new Point(target.X, target.Y);
             }
             else
             {
                 Point a = new Point(target.X - Position.X, target.Y - Position.Y);
-                newPosition.X = Position.X + a.X / magnitude * distance;
-                newPosition.Y = Position.Y + a.Y / magnitude * distance;
+                Position = new Point(Position.X + a.X / magnitude * distance, Position.Y + a.Y / magnitude * distance);
             }
-            Position = newPosition;
         }
 
         /// <summary>
@@ -154,8 +149,7 @@ namespace Simulations2D
         {
             if (Scene != null)
             {
-                position.X = (float)SMath.Clamp(position.X, 0, Scene.Width);
-                position.Y = (float)SMath.Clamp(position.Y, 0, Scene.Height);
+                position = new Point((float)SMath.Clamp(position.X, 0, Scene.Width), (float)SMath.Clamp(position.Y, 0, Scene.Height));
             }
         }
 

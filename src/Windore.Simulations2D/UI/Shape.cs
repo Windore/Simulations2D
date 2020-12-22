@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simulations2D.UI
+namespace Windore.Simulations2D.UI
 {
     /// <summary>
     /// Represents the visual shape of a SimulationObject in UI.

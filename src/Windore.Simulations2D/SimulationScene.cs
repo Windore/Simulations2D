@@ -1,9 +1,9 @@
-﻿using Simulations2D.Util.SMath;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windore.Simulations2D.Util.SMath;
 
-namespace Simulations2D
+namespace Windore.Simulations2D
 {
     /// <summary>
     /// Represents a scene of a set size that contains SimulationObjects
@@ -23,7 +23,7 @@ namespace Simulations2D
         {
             get
             {
-                lock(simulationObjectsLock)
+                lock (simulationObjectsLock)
                 {
                     List<SimulationObject> objs = new List<SimulationObject>();
                     objs.AddRange(simulationObjectsCopy);
@@ -93,9 +93,9 @@ namespace Simulations2D
             {
                 // IsRemoved is checked here even though SimulationObjects that are removed should not be found here just in case
                 // a SimulationObject which is removed is readded for some reason
-                if (!simulationObject.IsRemoved) 
-                { 
-                    simulationObject.Update(); 
+                if (!simulationObject.IsRemoved)
+                {
+                    simulationObject.Update();
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace Simulations2D
         /// <param name="simulationObjects">SimulationObjects to add to the scene</param>
         public void AddAll(params SimulationObject[] simulationObjects)
         {
-            foreach(SimulationObject obj in simulationObjects)
+            foreach (SimulationObject obj in simulationObjects)
             {
                 Add(obj);
             }

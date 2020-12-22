@@ -1,10 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
-using Simulations2D.Util.SMath;
-using System;
 using System.Threading;
 
-namespace Simulations2D.UI
+namespace Windore.Simulations2D.UI
 {
     internal class SimulationWindow
     {

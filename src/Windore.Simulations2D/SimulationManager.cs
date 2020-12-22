@@ -1,9 +1,7 @@
-﻿using Simulations2D.UI;
-using System;
+﻿using Windore.Simulations2D.UI;
 using System.Threading;
-using System.Timers;
 
-namespace Simulations2D
+namespace Windore.Simulations2D
 {
     /// <summary>
     /// Provides a class for controlling SimulationScenes and creating UI

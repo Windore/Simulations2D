@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Simulations2D.Util.SMath
+namespace Windore.Simulations2D.Util.SMath
 {
     /// <summary>
     /// Represents a location in a two-dimensional plane.
@@ -13,11 +11,11 @@ namespace Simulations2D.Util.SMath
         /// <summary>
         /// Gets or sets the x-coordinate of the point.
         /// </summary>
-        public float X { get; set; }
+        public float X { get; private set; }
         /// <summary>
         /// Gets or sets the y-coordinate of the point.
         /// </summary>
-        public float Y { get; set; }
+        public float Y { get; private set; }
 
         /// <summary>
         /// Initializes a new Point instance with the set x and y coordinate.
@@ -47,10 +45,10 @@ namespace Simulations2D.Util.SMath
         /// <returns>The distance to a specified point squared</returns>
         public double DistanceToSqr(Point p)
         {
-            double a = System.Math.Abs(p.X - X);
-            double b = System.Math.Abs(p.Y - Y);
+            double a = Math.Abs(p.X - X);
+            double b = Math.Abs(p.Y - Y);
 
-            return System.Math.Pow(a, 2) + System.Math.Pow(b, 2);
+            return Math.Pow(a, 2) + Math.Pow(b, 2);
         }
 
         /// <summary>

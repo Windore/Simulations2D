@@ -1,61 +1,61 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Simulations2D</name>
+        <name>Windore.Simulations2D</name>
     </assembly>
     <members>
-        <member name="T:Simulations2D.SimulationManager">
+        <member name="T:Windore.Simulations2D.SimulationManager">
             <summary>
             Provides a class for controlling SimulationScenes and creating UI
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationManager.SimulationScene">
+        <member name="P:Windore.Simulations2D.SimulationManager.SimulationScene">
             <summary>
             Gets the current managed SimulationScene
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationManager.UIRunning">
+        <member name="P:Windore.Simulations2D.SimulationManager.UIRunning">
             <summary>
             Gets or sets whether the SimulationWindow is open
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationManager.SimulationRunning">
+        <member name="P:Windore.Simulations2D.SimulationManager.SimulationRunning">
             <summary>
             Gets whether SimulationScene is updated
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.#ctor(Simulations2D.SimulationScene)">
+        <member name="M:Windore.Simulations2D.SimulationManager.#ctor(Windore.Simulations2D.SimulationScene)">
             <summary>
             Initializes a new SimulationManager instance
             </summary>
             <param name="scene">A SimulationScene to manage</param>
         </member>
-        <member name="M:Simulations2D.SimulationManager.StartSimulation">
+        <member name="M:Windore.Simulations2D.SimulationManager.StartSimulation">
             <summary>
             Starts the simulation
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.StopSimulation">
+        <member name="M:Windore.Simulations2D.SimulationManager.StopSimulation">
             <summary>
             Stops the simulation
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.OnSimulationWindowClose">
+        <member name="M:Windore.Simulations2D.SimulationManager.OnSimulationWindowClose">
             <summary>
             Occurs when SimulationWindow is closed
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.BeforeUpdate">
+        <member name="M:Windore.Simulations2D.SimulationManager.BeforeUpdate">
             <summary>
             Occurs every time before calling update
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.AfterUpdate">
+        <member name="M:Windore.Simulations2D.SimulationManager.AfterUpdate">
             <summary>
             Occurs every time after calling update
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationManager.OpenSimulationWindow(System.UInt32,System.UInt32,System.String)">
+        <member name="M:Windore.Simulations2D.SimulationManager.OpenSimulationWindow(System.UInt32,System.UInt32,System.String)">
             <summary>
             Opens a SimulationWindow
             </summary>
@@ -63,44 +63,44 @@
             <param name="height">The height of the window</param>
             <param name="title">The title of the window</param>
         </member>
-        <member name="M:Simulations2D.SimulationManager.CloseSimulationWindow">
+        <member name="M:Windore.Simulations2D.SimulationManager.CloseSimulationWindow">
             <summary>
             Closes the active SimulationWindow
             </summary>
         </member>
-        <member name="T:Simulations2D.SimulationObject">
+        <member name="T:Windore.Simulations2D.SimulationObject">
             <summary>
             Represents an object in a SimulationScene
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.IsRemoved">
+        <member name="P:Windore.Simulations2D.SimulationObject.IsRemoved">
             <summary>
             Indicates wheter this SimulationObject is removed or not
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.Scene">
+        <member name="P:Windore.Simulations2D.SimulationObject.Scene">
             <summary>
             Gets the current scene the SimulationObject is in.
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.Shape">
+        <member name="P:Windore.Simulations2D.SimulationObject.Shape">
             <summary>
             Gets or sets the current visual Shape of the SimulationObject
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.Position">
+        <member name="P:Windore.Simulations2D.SimulationObject.Position">
             <summary>
             Gets or sets the current position of the SimulationObject. 
             <br></br>
             If the SimulationObject is in a SimulationScene the position will be clamped to fit the scene
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.Color">
+        <member name="P:Windore.Simulations2D.SimulationObject.Color">
             <summary>
             Gets or sets the current Color of the SimulationObject
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationObject.Size">
+        <member name="P:Windore.Simulations2D.SimulationObject.Size">
             <summary>
             Gets or sets the size of the SimulationObject. Affects calculations and visuals
             <para>For calculations the size expresses the diameter of the circle.</para>
@@ -112,36 +112,36 @@
             </list>
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObject.#ctor(Simulations2D.Util.SMath.Point,Simulations2D.UI.Shape,SFML.Graphics.Color,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationObject.#ctor(Windore.Simulations2D.Util.SMath.Point,Windore.Simulations2D.UI.Shape,SFML.Graphics.Color,System.Single)">
             <summary>
             Initializes a new SimulationObject instance with the set position, shape, color and size.
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObject.Update">
+        <member name="M:Windore.Simulations2D.SimulationObject.Update">
             <summary>
             Update occurs every time SimulationScene is updated
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObject.OverlappingWith(Simulations2D.SimulationObject)">
+        <member name="M:Windore.Simulations2D.SimulationObject.OverlappingWith(Windore.Simulations2D.SimulationObject)">
             <summary>
             Returns true when the current SimulationObject is overlapping with a specified SimulationObject.
             </summary>
             <param name="simulationObject">A SimulationObject to test for overlapping</param>
             <returns>True when the current SimulationObject is overlapping with a specified SimulationObject</returns>
         </member>
-        <member name="M:Simulations2D.SimulationObject.GetSimulationObjectsInRange(System.Double)">
+        <member name="M:Windore.Simulations2D.SimulationObject.GetSimulationObjectsInRange(System.Double)">
             <summary>
             Returns all nearby SimulationObjects that are in the specified range.
             </summary>
             <param name="range">The range to check for SimulationObjects</param>
             <returns>A list of SimulationObjects in the specified range</returns>
         </member>
-        <member name="M:Simulations2D.SimulationObject.Remove">
+        <member name="M:Windore.Simulations2D.SimulationObject.Remove">
             <summary>
             Marks this SimulationObject for removal
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObject.MoveTowards(Simulations2D.Util.SMath.Point,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationObject.MoveTowards(Windore.Simulations2D.Util.SMath.Point,System.Single)">
             <summary>
             Moves the SimulationObject towards the target, moving approximately the maximum of distance units.
             <br></br>
@@ -150,47 +150,47 @@
             <param name="target">Target position</param>
             <param name="distance">Maximum distance to move</param>
         </member>
-        <member name="M:Simulations2D.SimulationObject.ClampPosition">
+        <member name="M:Windore.Simulations2D.SimulationObject.ClampPosition">
             <summary>
             Clamps the SimulationObject's position to fit in the current SimulationScene
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObject.OnSelect">
+        <member name="M:Windore.Simulations2D.SimulationObject.OnSelect">
             <summary>
             Occurs every time this SimulationObject is selected
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationObjectsContainer.GetInRange(Simulations2D.Util.SMath.Point,System.Double,Simulations2D.SimulationObject)">
+        <member name="M:Windore.Simulations2D.SimulationObjectsContainer.GetInRange(Windore.Simulations2D.Util.SMath.Point,System.Double,Windore.Simulations2D.SimulationObject)">
             <summary>
             Returns all SimulationObjects in this Container that are in range from the specified point
             </summary>
         </member>
-        <member name="T:Simulations2D.SimulationScene">
+        <member name="T:Windore.Simulations2D.SimulationScene">
             <summary>
             Represents a scene of a set size that contains SimulationObjects
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationScene.SimulationObjects">
+        <member name="P:Windore.Simulations2D.SimulationScene.SimulationObjects">
             <summary>
             Gets all SimulationObjects in the scene as a list
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationScene.Width">
+        <member name="P:Windore.Simulations2D.SimulationScene.Width">
             <summary>
             Gets the width of the SimulationScene
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationScene.Height">
+        <member name="P:Windore.Simulations2D.SimulationScene.Height">
             <summary>
             Gets the height of the SimulationScene
             </summary>
         </member>
-        <member name="P:Simulations2D.SimulationScene.Age">
+        <member name="P:Windore.Simulations2D.SimulationScene.Age">
             <summary>
             Gets the amount of updates this SimulationScene has done
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationScene.#ctor(System.Single,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationScene.#ctor(System.Single,System.Single)">
             <summary>
             Initializes a new SimulationScene instance of the set width and height.
             </summary>
@@ -198,25 +198,25 @@
             <param name="height">The Height of the new SimulationScene</param>
             <exception cref="T:System.ArgumentException">Width or height is set below zero</exception>
         </member>
-        <member name="M:Simulations2D.SimulationScene.Update">
+        <member name="M:Windore.Simulations2D.SimulationScene.Update">
             <summary>
             Calls Update on all SimulationObjects in the scene, 
             adds all new SimulationObjects to the scene and removes all SimulationObjects that were marked for removal
             </summary>
         </member>
-        <member name="M:Simulations2D.SimulationScene.Add(Simulations2D.SimulationObject)">
+        <member name="M:Windore.Simulations2D.SimulationScene.Add(Windore.Simulations2D.SimulationObject)">
             <summary>
             Adds a SimulationObject to the scene.
             </summary>
             <param name="simulationObject">SimulationObject to add to the scene</param>
         </member>
-        <member name="M:Simulations2D.SimulationScene.AddAll(Simulations2D.SimulationObject[])">
+        <member name="M:Windore.Simulations2D.SimulationScene.AddAll(Windore.Simulations2D.SimulationObject[])">
             <summary>
             Adds all SimulationObjects to the scene.
             </summary>
             <param name="simulationObjects">SimulationObjects to add to the scene</param>
         </member>
-        <member name="M:Simulations2D.SimulationScene.GetSimulationObjectsInRange(Simulations2D.Util.SMath.Point,System.Double,Simulations2D.SimulationObject)">
+        <member name="M:Windore.Simulations2D.SimulationScene.GetSimulationObjectsInRange(Windore.Simulations2D.Util.SMath.Point,System.Double,Windore.Simulations2D.SimulationObject)">
             <summary>
             Returns all SimulationObjects that are within the specified range from the specified point. Ignores the specified SimulationObject
             </summary>
@@ -225,7 +225,7 @@
             <param name="simulationObjectToIgnore">A SimulationObject not to be included in the returned list.</param>
             <returns>All SimulationObjects that are within the specified range from the specified point</returns>
         </member>
-        <member name="T:Simulations2D.UI.Shape">
+        <member name="T:Windore.Simulations2D.UI.Shape">
             <summary>
             Represents the visual shape of a SimulationObject in UI.
             <para>
@@ -233,119 +233,119 @@
             </para>
             </summary>
         </member>
-        <member name="F:Simulations2D.UI.Shape.Circle">
+        <member name="F:Windore.Simulations2D.UI.Shape.Circle">
             <summary>
             Indicates a Circle shape
             </summary>
         </member>
-        <member name="F:Simulations2D.UI.Shape.Square">
+        <member name="F:Windore.Simulations2D.UI.Shape.Square">
             <summary>
             Indicates a Square shape
             </summary>
         </member>
-        <member name="F:Simulations2D.UI.Shape.Triangle">
+        <member name="F:Windore.Simulations2D.UI.Shape.Triangle">
             <summary>
             Indicates a Triangle shape
             </summary>
         </member>
-        <member name="T:Simulations2D.Util.SMath.Percentage">
+        <member name="T:Windore.Simulations2D.Util.SMath.Percentage">
             <summary>
             Represents a percentage amount.
             </summary>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Percentage.#ctor(System.Double)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Percentage.#ctor(System.Double)">
             <summary>
             Initializes a new Percentage instance from a percentage amount e.g 20.
             </summary>
             <param name="percentage">A percentage amount</param>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Percentage.FromDecimal(System.Double)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Percentage.FromDecimal(System.Double)">
             <summary>
             Initializes a new Percentage instance from a number e.g 0.2.
             </summary>
             <param name="number">A double number</param>
             <returns></returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Percentage.ToString">
+        <member name="M:Windore.Simulations2D.Util.SMath.Percentage.ToString">
             <summary>
             Returns a string that represents the current Percentage.
             </summary>
             <returns>a string that represents the current Percentage.</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Percentage.Equals(System.Object)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Percentage.Equals(System.Object)">
             <summary>
             Determines whether the specified object is equal to the current Percentage.
             </summary>
             <param name="obj">The object to compare with the current Percentage.</param>
             <returns>true if the specified object is equal to the current Percentage; otherwise, false.</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Percentage.GetHashCode">
+        <member name="M:Windore.Simulations2D.Util.SMath.Percentage.GetHashCode">
             <summary>
             Gets the hash code for the current Percentage.
             </summary>
             <returns>A hash code for the current Percentage.</returns>
         </member>
-        <member name="T:Simulations2D.Util.SMath.Point">
+        <member name="T:Windore.Simulations2D.Util.SMath.Point">
             <summary>
             Represents a location in a two-dimensional plane.
             </summary>
         </member>
-        <member name="P:Simulations2D.Util.SMath.Point.X">
+        <member name="P:Windore.Simulations2D.Util.SMath.Point.X">
             <summary>
             Gets or sets the x-coordinate of the point.
             </summary>
         </member>
-        <member name="P:Simulations2D.Util.SMath.Point.Y">
+        <member name="P:Windore.Simulations2D.Util.SMath.Point.Y">
             <summary>
             Gets or sets the y-coordinate of the point.
             </summary>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.#ctor(System.Single,System.Single)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.#ctor(System.Single,System.Single)">
             <summary>
             Initializes a new Point instance with the set x and y coordinate.
             </summary>
             <param name="x">The x-coordinate</param>
             <param name="y">The y-coordinate</param>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.DistanceTo(Simulations2D.Util.SMath.Point)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.DistanceTo(Windore.Simulations2D.Util.SMath.Point)">
             <summary>
             Calculates the distance to a specified point.
             </summary>
             <param name="p">The point to calculate the distance to</param>
             <returns>The distance to a specified point</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.DistanceToSqr(Simulations2D.Util.SMath.Point)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.DistanceToSqr(Windore.Simulations2D.Util.SMath.Point)">
             <summary>
             Calculates the squared distance to a specified point.
             </summary>
             <param name="p">The point to calculate the distance to</param>
             <returns>The distance to a specified point squared</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.ToString">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.ToString">
             <summary>
             Returns a string that represents the current Point.
             </summary>
             <returns>a string that represents the current Point.</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.Equals(System.Object)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.Equals(System.Object)">
             <summary>
             Determines whether the specified object is equal to the current Point.
             </summary>
             <param name="obj">The object to compare with the current Point.</param>
             <returns>true if the specified object is equal to the current Point; otherwise, false.</returns>    
         </member>
-        <member name="M:Simulations2D.Util.SMath.Point.GetHashCode">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.GetHashCode">
             <summary>
             Gets hash code for this Point.
             </summary>
             <returns>A hash code for the current Point.</returns>
         </member>
-        <member name="T:Simulations2D.Util.SMath.SMath">
+        <member name="T:Windore.Simulations2D.Util.SMath.SMath">
             <summary>
             Collection of useful methods that are not found in the System.Math library
             </summary>
         </member>
-        <member name="M:Simulations2D.Util.SMath.SMath.Clamp(System.Double,System.Double,System.Double)">
+        <member name="M:Windore.Simulations2D.Util.SMath.SMath.Clamp(System.Double,System.Double,System.Double)">
             <summary>
             Clamps the number between the min and the max value
             </summary>
@@ -354,21 +354,21 @@
             <param name="max">The maximum value</param>
             <returns>The clamped value</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.SMath.StandardDeviation(System.Double[])">
+        <member name="M:Windore.Simulations2D.Util.SMath.SMath.StandardDeviation(System.Double[])">
             <summary>
             Calculates the standard deviation of the given numbers
             </summary>
             <param name="numbers">The numbers of which to calculate the standard deviation</param>
             <returns>The standard deviation of the given numbers</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.SMath.StandardDeviation(System.Collections.Generic.ICollection{System.Double})">
+        <member name="M:Windore.Simulations2D.Util.SMath.SMath.StandardDeviation(System.Collections.Generic.ICollection{System.Double})">
             <summary>
             Calculates the standard deviation of the numbers in the collection
             </summary>
             <param name="numbers">The numbers of which to calculate the standard deviation</param>
             <returns>The standard deviation of the numbers in the collection</returns>
         </member>
-        <member name="M:Simulations2D.Util.SMath.SMath.CircleOverlapsRectangle(Simulations2D.Util.SMath.Point,System.Double,Simulations2D.Util.SMath.Point,System.Double,System.Double)">
+        <member name="M:Windore.Simulations2D.Util.SMath.SMath.CircleOverlapsRectangle(Windore.Simulations2D.Util.SMath.Point,System.Double,Windore.Simulations2D.Util.SMath.Point,System.Double,System.Double)">
             <summary>
             Determines if a circle overlaps with a rectangle
             <para>Note: the rectangle must be aligned with X and Y axis</para>
@@ -380,34 +380,34 @@
             <param name="rectangleHeight">Height of the rectangle</param>
             <returns>True if the shapes overlap</returns>
         </member>
-        <member name="T:Simulations2D.Util.SRandom">
+        <member name="T:Windore.Simulations2D.Util.SRandom">
             <summary>
             Provides methods for pseudo-random value generation and helps to track and set the seed the generator.
             </summary>
         </member>
-        <member name="P:Simulations2D.Util.SRandom.Seed">
+        <member name="P:Windore.Simulations2D.Util.SRandom.Seed">
             <summary>
             Get or set the current seed of the pseudo-random number generator.
             </summary>
         </member>
-        <member name="M:Simulations2D.Util.SRandom.#ctor(System.Int32)">
+        <member name="M:Windore.Simulations2D.Util.SRandom.#ctor(System.Int32)">
             <summary>
             Initializes a new SRandom instance with a given seed
             </summary>
             <param name="seed">A seed for the generator</param>
         </member>
-        <member name="M:Simulations2D.Util.SRandom.#ctor">
+        <member name="M:Windore.Simulations2D.Util.SRandom.#ctor">
             <summary>
             Initializes a new SRandom instance with a random seed
             </summary>
         </member>
-        <member name="M:Simulations2D.Util.SRandom.Integer(System.Int32,System.Int32)">
+        <member name="M:Windore.Simulations2D.Util.SRandom.Integer(System.Int32,System.Int32)">
             <summary>
             Returns a random integer between the min and the max value.
             </summary>
             <returns>A random integer between the min and the max value</returns>
         </member>
-        <member name="M:Simulations2D.Util.SRandom.Boolean(Simulations2D.Util.SMath.Percentage)">
+        <member name="M:Windore.Simulations2D.Util.SRandom.Boolean(Windore.Simulations2D.Util.SMath.Percentage)">
             <summary>
             Returns true with the given probability, otherwise returns false.
             </summary>

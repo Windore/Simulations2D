@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using SFML.Graphics;
-using Simulations2D;
-using Simulations2D.Util.SMath;
+using Windore.Simulations2D;
+using Windore.Simulations2D.Util.SMath;
 
 namespace Tests
 {
+    [TestFixture]
     public class SimulationSceneTests
     {
         private class SimulationObjectTestClass : SimulationObject
@@ -14,7 +13,7 @@ namespace Tests
             private readonly List<int> list;
 
             public int Number { get; private set; }
-            public SimulationObjectTestClass(int number, List<int> callOrderList = null) : base(new Point(0, 0), Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
+            public SimulationObjectTestClass(int number, List<int> callOrderList = null) : base(new Point(0, 0), Windore.Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
             {
                 Number = number;
                 list = callOrderList;
@@ -142,7 +141,7 @@ namespace Tests
 
         private class TestObj : SimulationObject
         {
-            public TestObj() : base(new Point(0, 0), Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
+            public TestObj() : base(new Point(0, 0), Windore.Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
             {
             }
 

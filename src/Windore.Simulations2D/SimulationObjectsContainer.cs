@@ -1,10 +1,10 @@
-﻿using Simulations2D.Util.SMath;
+﻿using Windore.Simulations2D.Util.SMath;
 using System.Collections.Generic;
 
-namespace Simulations2D
+namespace Windore.Simulations2D
 {
-    // This class is used to optimize the GetSimulationObjectsInRange method.
-    // However currently this class most likely isn't very well optimized, but it works.
+    // This class is used to speed up the GetSimulationObjectsInRange method.
+    // However currently this class isn't very well optimized, but it works.
     internal class SimulationObjectsContainer
     {
         private readonly List<SimulationObject> simulationObjects;

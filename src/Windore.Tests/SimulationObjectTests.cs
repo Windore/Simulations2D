@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Simulations2D;
-using Simulations2D.UI;
-using Simulations2D.Util.SMath;
+using Windore.Simulations2D;
+using Windore.Simulations2D.UI;
+using Windore.Simulations2D.Util.SMath;
 
 namespace Tests
 {
+    [TestFixture]
     public class SimulationObjectsTests
     {
         private class SimulationObjectTestClass : SimulationObject

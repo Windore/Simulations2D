@@ -1,7 +1,7 @@
 ﻿using System;
-using Simulations2D.Util.SMath;
+using Windore.Simulations2D.Util.SMath;
 
-namespace Simulations2D.Util
+namespace Windore.Simulations2D.Util
 {
     /// <summary>
     /// Provides methods for pseudo-random value generation and helps to track and set the seed the generator.

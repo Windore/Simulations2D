@@ -1,8 +1,9 @@
 using NUnit.Framework;
-using Simulations2D.Util.SMath;
+using Windore.Simulations2D.Util.SMath;
 
 namespace Tests
 {
+    [TestFixture]
     public class PointTests
     {
         [Test]
