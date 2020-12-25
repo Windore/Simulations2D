@@ -125,8 +125,11 @@ namespace Windore.Simulations2D
         /// <param name="simulationObject">SimulationObject to add to the scene</param>
         public void Add(SimulationObject simulationObject)
         {
-            simulationObjects.Add(simulationObject);
-            simulationObject.Scene = this;
+            lock (simulationObjectsLock) 
+            {
+                simulationObjects.Add(simulationObject);
+                simulationObject.Scene = this;
+            }
         }
 
         /// <summary>
