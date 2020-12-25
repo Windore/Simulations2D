@@ -7,6 +7,9 @@ namespace Windore.Simulations2D
     // However currently this class isn't very well optimized, but it works.
     internal class SimulationObjectsContainer
     {
+        private static readonly int startingDepth = 3;
+        private static readonly int innerContainerLineAmount = 5;
+
         private readonly List<SimulationObject> simulationObjects;
         private readonly List<SimulationObjectsContainer> containers;
 
@@ -15,7 +18,7 @@ namespace Windore.Simulations2D
         private readonly float height;
         private readonly bool holdsContainers;
 
-        internal SimulationObjectsContainer(float width, float height) : this(new Point(width / 2f, height / 2f), width, height, 4) { }
+        internal SimulationObjectsContainer(float width, float height) : this(new Point(width / 2f, height / 2f), width, height, startingDepth) { }
 
         private SimulationObjectsContainer(Point centerPoint, float width, float height, int depth)
         {
@@ -29,16 +32,16 @@ namespace Windore.Simulations2D
 
             if (holdsContainers)
             {
-                //Divide the container to 16 (4 * 4) inner containers
+                //Divide the container to innerContainerAmountRoot² inner containers
 
-                float innerContainerWidth = width / 4f;
-                float innerContainerHeight = height / 4f;
+                float innerContainerWidth = width / (float)innerContainerLineAmount;
+                float innerContainerHeight = height / (float)innerContainerLineAmount;
 
                 float currentY = centerPoint.Y - height / 2f + innerContainerHeight / 2f;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < innerContainerLineAmount; i++)
                 {
                     float currentX = centerPoint.X - width / 2f + innerContainerWidth / 2f;
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < innerContainerLineAmount; j++)
                     {
                         containers.Add(new SimulationObjectsContainer(new Point(currentX, currentY), innerContainerWidth, innerContainerHeight, depth - 1));
                         currentX += innerContainerWidth;

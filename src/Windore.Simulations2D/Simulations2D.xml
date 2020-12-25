@@ -414,5 +414,13 @@
             <param name="percentage">Probability of returning true</param>
             <returns>True with the given probability, otherwise returns false.</returns>
         </member>
+        <member name="M:Windore.Simulations2D.Util.SRandom.Point(System.Int32,System.Int32)">
+            <summary>
+            Returns a random point with a max X and Y value.
+            </summary>
+            <param name="maxX">Max X value</param>
+            <param name="maxY">Max Y value</param>
+            <returns>A random point with a max X and Y value.</returns>
+        </member>
     </members>
 </doc>
