@@ -63,5 +63,19 @@ namespace Windore.Simulations2D.Util
         {
             return random.NextDouble() <= percentage;
         }
+
+        /// <summary>
+        /// Returns a random point with a max X and Y value.
+        /// </summary>
+        /// <param name="maxX">Max X value</param>
+        /// <param name="maxY">Max Y value</param>
+        /// <returns>A random point with a max X and Y value.</returns>
+        public Point Point(int maxX, int maxY) 
+        {
+            int x = Integer(0, maxX);
+            int y = Integer(0, maxY);
+
+            return new Point(x,y);
+        }
     }
 }
