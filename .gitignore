@@ -2,5 +2,6 @@
 bin/
 obj/
 
-# Ignore visual studio files
+# Ignore visual studio (code) files
 .vs/
+.vscode/
