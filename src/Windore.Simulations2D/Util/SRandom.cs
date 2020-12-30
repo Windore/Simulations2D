@@ -55,6 +55,15 @@ namespace Windore.Simulations2D.Util
         }
 
         /// <summary>
+        /// Returns a random double between the min and the max value.
+        /// </summary>
+        /// <returns>A random double between the min and the max value</returns>
+        public double Double(double min, double max) 
+        {
+            return random.NextDouble() * (max - min) + min;
+        }
+
+        /// <summary>
         /// Returns true with the given probability, otherwise returns false.
         /// </summary>
         /// <param name="percentage">Probability of returning true</param>
