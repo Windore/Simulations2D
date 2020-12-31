@@ -30,10 +30,11 @@
             </summary>
             <param name="scene">A SimulationScene to manage</param>
         </member>
-        <member name="M:Windore.Simulations2D.SimulationManager.StartSimulation">
+        <member name="M:Windore.Simulations2D.SimulationManager.StartSimulation(System.Int32)">
             <summary>
             Starts the simulation
             </summary>
+            <param name="maxUps">Maximum number of updates per second. Value of 0 or negative indicates that no maximum is set.</param>
         </member>
         <member name="M:Windore.Simulations2D.SimulationManager.StopSimulation">
             <summary>

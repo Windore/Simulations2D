@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Windore.Simulations2D.Util.SMath;
 
 namespace Windore.Simulations2D
@@ -93,7 +92,8 @@ namespace Windore.Simulations2D
                 }
                 else
                 {
-                    simulationObjects.Remove(simulationObject);
+                    lock (simulationObjectsLock)
+                        simulationObjects.Remove(simulationObject);
                 }
             }
         }
