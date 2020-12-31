@@ -8,7 +8,7 @@ namespace Windore.Simulations2D.UI
     {
         private RenderWindow window;
         private readonly SimulationManager manager;
-        private bool shouldClose = false;
+        private volatile bool shouldClose = false;
 
         private SimulationObject selectedObject;
 
@@ -61,6 +61,8 @@ namespace Windore.Simulations2D.UI
                 {
                     Thread.Sleep(100);
                     window.DispatchEvents();
+                    window.Clear(Color.White);
+                    window.Display();
                 }
 
                 if (shouldClose)

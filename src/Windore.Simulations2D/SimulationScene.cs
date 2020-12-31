@@ -11,9 +11,9 @@ namespace Windore.Simulations2D
     public class SimulationScene
     {
         private readonly object simulationObjectsLock = new object();
+        private readonly object simulationContainerLock = new object();
 
         private readonly List<SimulationObject> simulationObjects;
-        private ReadOnlyCollection<SimulationObject> simulationObjectsCopy;
         private readonly SimulationObjectsContainer container;
 
         /// <summary>
@@ -25,9 +25,7 @@ namespace Windore.Simulations2D
             {
                 lock (simulationObjectsLock)
                 {
-                    List<SimulationObject> objs = new List<SimulationObject>();
-                    objs.AddRange(simulationObjectsCopy);
-                    return objs;
+                    return new List<SimulationObject>(simulationObjects);
                 }
             }
         }
@@ -63,7 +61,6 @@ namespace Windore.Simulations2D
             Width = width;
             Height = height;
             simulationObjects = new List<SimulationObject>();
-            simulationObjectsCopy = new List<SimulationObject>().AsReadOnly();
             container = new SimulationObjectsContainer(width, height);
         }
 
@@ -74,25 +71,22 @@ namespace Windore.Simulations2D
         public void Update()
         {
             Age++;
-            /*
-             * Before each update SimulationObjects are copied into a list.
-             * This List is used to call updates on SimulationObjects
-             */
-            CopySimulationObjects();
 
-            container.Clear();
-            foreach (SimulationObject obj in simulationObjectsCopy)
+            // This lock is not very optimal but the container shouldn't be usually accessed from multiple threads.
+            lock (simulationContainerLock)
             {
-                if (!obj.IsRemoved)
+                container.Clear();
+                foreach (SimulationObject obj in SimulationObjects)
                 {
-                    container.Add(obj);
+                    if (!obj.IsRemoved)
+                    {
+                        container.Add(obj);
+                    }
                 }
             }
 
-            foreach (SimulationObject simulationObject in simulationObjectsCopy)
+            foreach (SimulationObject simulationObject in SimulationObjects)
             {
-                // IsRemoved is checked here even though SimulationObjects that are removed should not be found here just in case
-                // a SimulationObject which is removed is readded for some reason
                 if (!simulationObject.IsRemoved)
                 {
                     simulationObject.Update();
@@ -102,22 +96,7 @@ namespace Windore.Simulations2D
                     simulationObjects.Remove(simulationObject);
                 }
             }
-
-            // This is re-done here so all SimulationObject removals are applied
-            CopySimulationObjects();
         }
-
-        private void CopySimulationObjects()
-        {
-            lock (simulationObjectsLock)
-            {
-                List<SimulationObject> objects = new List<SimulationObject>();
-                objects.AddRange(simulationObjects);
-                simulationObjectsCopy = objects.AsReadOnly();
-            }
-        }
-
-        // We don't want to expose the list containing all SimulationObjects so adding is done through these methods
 
         /// <summary>
         /// Adds a SimulationObject to the scene.
@@ -153,7 +132,8 @@ namespace Windore.Simulations2D
         /// <returns>All SimulationObjects that are within the specified range from the specified point</returns>
         internal List<SimulationObject> GetSimulationObjectsInRange(Point point, double range, SimulationObject simulationObjectToIgnore = null)
         {
-            return container.GetInRange(point, range, simulationObjectToIgnore);
+            lock (simulationContainerLock) 
+                return container.GetInRange(point, range, simulationObjectToIgnore);
         }
     }
 }

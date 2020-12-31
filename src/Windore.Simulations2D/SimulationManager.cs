@@ -10,6 +10,8 @@ namespace Windore.Simulations2D
     {
         private SimulationWindow window;
         private Thread simulationThread;
+        private volatile bool uiRunning = false;
+        private volatile bool simulationRunning = false;
 
         /// <summary>
         /// Gets the current managed SimulationScene
@@ -19,12 +21,12 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Gets or sets whether the SimulationWindow is open
         /// </summary>
-        public bool UIRunning { get; internal set; } = false;
+        public bool UIRunning { get => uiRunning; internal set => uiRunning = value; }
 
         /// <summary>
         /// Gets whether SimulationScene is updated
         /// </summary>
-        public bool SimulationRunning { get; private set; }
+        public bool SimulationRunning { get => simulationRunning; private set => simulationRunning = value; }
 
         /// <summary>
         /// Initializes a new SimulationManager instance
