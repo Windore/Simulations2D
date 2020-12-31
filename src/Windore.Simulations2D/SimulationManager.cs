@@ -1,5 +1,7 @@
 ﻿using Windore.Simulations2D.UI;
 using System.Threading;
+using System;
+using System.Diagnostics;
 
 namespace Windore.Simulations2D
 {
@@ -10,6 +12,9 @@ namespace Windore.Simulations2D
     {
         private SimulationWindow window;
         private Thread simulationThread;
+        private volatile bool uiRunning = false;
+        private volatile bool simulationRunning = false;
+        private int maxUps = 0;
 
         /// <summary>
         /// Gets the current managed SimulationScene
@@ -19,12 +24,12 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Gets or sets whether the SimulationWindow is open
         /// </summary>
-        public bool UIRunning { get; internal set; } = false;
+        public bool UIRunning { get => uiRunning; internal set => uiRunning = value; }
 
         /// <summary>
         /// Gets whether SimulationScene is updated
         /// </summary>
-        public bool SimulationRunning { get; private set; }
+        public bool SimulationRunning { get => simulationRunning; private set => simulationRunning = value; }
 
         /// <summary>
         /// Initializes a new SimulationManager instance
@@ -38,11 +43,13 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Starts the simulation
         /// </summary>
-        public void StartSimulation()
+        /// <param name="maxUps">Maximum number of updates per second. Value of 0 or negative indicates that no maximum is set.</param>
+        public void StartSimulation(int maxUps=0)
         {
             if (SimulationRunning) return;
 
-            simulationThread = new Thread(new ThreadStart(Update));
+            this.maxUps = maxUps;
+            simulationThread = new Thread(new ThreadStart(UpdateLoop));
             simulationThread.Start();
             SimulationRunning = true;
         }
@@ -67,13 +74,36 @@ namespace Windore.Simulations2D
         /// </summary>
         protected virtual void BeforeUpdate() {}
 
-        private void Update()
+        private void UpdateLoop()
         {
+            bool isMaxUpsSet = maxUps > 0;
+            long updateLengthInMillis = 0;
+            Stopwatch stopwatch = new Stopwatch();
+
+            if (isMaxUpsSet) 
+            {
+                updateLengthInMillis = (long)Math.Round(1d / maxUps * 1000);
+                stopwatch.Start();
+            }
+
             while (SimulationRunning)
             {
                 BeforeUpdate();
                 SimulationScene.Update();
                 AfterUpdate();
+
+                // This is used to reduce the speed of the simulation.
+                if (isMaxUpsSet) 
+                {
+                    stopwatch.Stop();
+                    long timeLeft = updateLengthInMillis - stopwatch.ElapsedMilliseconds;
+
+                    if (timeLeft > 0)
+                        Thread.Sleep((int)timeLeft);
+
+                    stopwatch.Reset();
+                    stopwatch.Start();
+                }
             }
         }
 
