@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace Windore.Simulations2D.ExampleApp
 {
@@ -15,6 +14,13 @@ namespace Windore.Simulations2D.ExampleApp
 
             // Now the simulation can be started. This will start the simulation in a different thread.
             manager.StartSimulation();
+
+            // If wanted the simulation could be started with the following:
+            //
+            // manager.StartSimulation(60);
+            //
+            // This would limit the maximum ups to be  approx. 60.
+            // The limit is not precise.
 
             // And a 1000 by 1000 window of the simulation is opened. 
             // Note that the size of the window doesn't need to match the size of the SimulationScene. Everything will be scaled

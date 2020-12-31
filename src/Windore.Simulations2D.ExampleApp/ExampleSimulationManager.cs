@@ -21,6 +21,9 @@ namespace Windore.Simulations2D.ExampleApp
         // A custom random class is used to keep track of the randomness seed of the simulation
         public SRandom SimulationRandom { get; private set; }
 
+        int qty = 0;
+        double avgUps = 0;
+
         Stopwatch s = new Stopwatch();
 
         // Constructor calls the base costructor and creates a new SimulationScene with a size of 1000²
@@ -56,12 +59,22 @@ namespace Windore.Simulations2D.ExampleApp
             // stopwatch is used to get the milliseconds between updates
             s.Stop();
             long elapsed = s.ElapsedMilliseconds;
+            qty++;
+            double ups = 1d / (elapsed / 1000d);
+
+            if (qty == 1000) 
+            {
+                avgUps = ups;
+                qty = 1;
+            }
+
+            avgUps += (ups - avgUps) / qty;
 
             // Write data about the simulation to the console
             Console.Clear();
             Console.WriteLine("Simulation Objects: " + SimulationScene.SimulationObjects.Count);
             Console.WriteLine("Infected: " + InfectedCounter);
-            Console.WriteLine("Updates Per Second: " + 1d / (elapsed / 1000d));
+            Console.WriteLine("Average Updates Per Second: " + Math.Round(avgUps, 3));
             Console.WriteLine("Randomness Seed: " + SimulationRandom.Seed);
 
             // Now if a simulatioObject is selected and is not removed...
