@@ -12,7 +12,7 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Indicates wheter this SimulationObject is removed or not
         /// </summary>
-        internal bool IsRemoved { get; set; } = false;
+        public bool IsRemoved { get; internal set; } = false;
 
         private Point position;
         private float size;
