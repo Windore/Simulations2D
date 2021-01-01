@@ -14,13 +14,13 @@ namespace Windore.Simulations2D
         private readonly List<SimulationObjectsContainer> containers;
 
         private readonly Point centerPoint;
-        private readonly float width;
-        private readonly float height;
+        private readonly double width;
+        private readonly double height;
         private readonly bool holdsContainers;
 
-        internal SimulationObjectsContainer(float width, float height) : this(new Point(width / 2f, height / 2f), width, height, startingDepth) { }
+        internal SimulationObjectsContainer(double width, double height) : this(new Point(width / 2d, height / 2d), width, height, startingDepth) { }
 
-        private SimulationObjectsContainer(Point centerPoint, float width, float height, int depth)
+        private SimulationObjectsContainer(Point centerPoint, double width, double height, int depth)
         {
             this.centerPoint = centerPoint;
             this.width = width;
@@ -34,13 +34,13 @@ namespace Windore.Simulations2D
             {
                 //Divide the container to innerContainerAmountRoot² inner containers
 
-                float innerContainerWidth = width / (float)innerContainerLineAmount;
-                float innerContainerHeight = height / (float)innerContainerLineAmount;
+                double innerContainerWidth = width / (double)innerContainerLineAmount;
+                double innerContainerHeight = height / (double)innerContainerLineAmount;
 
-                float currentY = centerPoint.Y - height / 2f + innerContainerHeight / 2f;
+                double currentY = centerPoint.Y - height / 2f + innerContainerHeight / 2f;
                 for (int i = 0; i < innerContainerLineAmount; i++)
                 {
-                    float currentX = centerPoint.X - width / 2f + innerContainerWidth / 2f;
+                    double currentX = centerPoint.X - width / 2f + innerContainerWidth / 2f;
                     for (int j = 0; j < innerContainerLineAmount; j++)
                     {
                         containers.Add(new SimulationObjectsContainer(new Point(currentX, currentY), innerContainerWidth, innerContainerHeight, depth - 1));

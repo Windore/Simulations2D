@@ -15,7 +15,7 @@ namespace Windore.Simulations2D
         public bool IsRemoved { get; internal set; } = false;
 
         private Point position;
-        private float size;
+        private double size;
 
         /// <summary>
         /// Gets the current scene the SimulationObject is in.
@@ -57,7 +57,7 @@ namespace Windore.Simulations2D
         ///     <item>Triangle: side length</item>
         /// </list>
         /// </summary>
-        public float Size
+        public double Size
         {
             get => size;
             set
@@ -72,7 +72,7 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Initializes a new SimulationObject instance with the set position, shape, color and size.
         /// </summary>
-        protected SimulationObject(Point position, Shape shape, SFML.Graphics.Color color, float size)
+        protected SimulationObject(Point position, Shape shape, SFML.Graphics.Color color, double size)
         {
             Position = position;
             Shape = shape;
@@ -128,9 +128,9 @@ namespace Windore.Simulations2D
         /// </summary>
         /// <param name="target">Target position</param>
         /// <param name="distance">Maximum distance to move</param>
-        public void MoveTowards(Point target, float distance)
+        public void MoveTowards(Point target, double distance)
         {
-            float magnitude = Position.DistanceTo(target);
+            double magnitude = Position.DistanceTo(target);
             if (magnitude <= distance || magnitude == 0f)
             {
                 Position = new Point(target.X, target.Y);
@@ -149,7 +149,7 @@ namespace Windore.Simulations2D
         {
             if (Scene != null)
             {
-                position = new Point((float)SMath.Clamp(position.X, 0, Scene.Width), (float)SMath.Clamp(position.Y, 0, Scene.Height));
+                position = new Point(SMath.Clamp(position.X, 0, Scene.Width), SMath.Clamp(position.Y, 0, Scene.Height));
             }
         }
 

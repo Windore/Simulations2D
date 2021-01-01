@@ -113,7 +113,7 @@
             </list>
             </summary>
         </member>
-        <member name="M:Windore.Simulations2D.SimulationObject.#ctor(Windore.Simulations2D.Util.SMath.Point,Windore.Simulations2D.UI.Shape,SFML.Graphics.Color,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationObject.#ctor(Windore.Simulations2D.Util.SMath.Point,Windore.Simulations2D.UI.Shape,SFML.Graphics.Color,System.Double)">
             <summary>
             Initializes a new SimulationObject instance with the set position, shape, color and size.
             </summary>
@@ -142,7 +142,7 @@
             Marks this SimulationObject for removal
             </summary>
         </member>
-        <member name="M:Windore.Simulations2D.SimulationObject.MoveTowards(Windore.Simulations2D.Util.SMath.Point,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationObject.MoveTowards(Windore.Simulations2D.Util.SMath.Point,System.Double)">
             <summary>
             Moves the SimulationObject towards the target, moving approximately the maximum of distance units.
             <br></br>
@@ -191,7 +191,7 @@
             Gets the amount of updates this SimulationScene has done
             </summary>
         </member>
-        <member name="M:Windore.Simulations2D.SimulationScene.#ctor(System.Single,System.Single)">
+        <member name="M:Windore.Simulations2D.SimulationScene.#ctor(System.Double,System.Double)">
             <summary>
             Initializes a new SimulationScene instance of the set width and height.
             </summary>
@@ -301,7 +301,7 @@
             Gets or sets the y-coordinate of the point.
             </summary>
         </member>
-        <member name="M:Windore.Simulations2D.Util.SMath.Point.#ctor(System.Single,System.Single)">
+        <member name="M:Windore.Simulations2D.Util.SMath.Point.#ctor(System.Double,System.Double)">
             <summary>
             Initializes a new Point instance with the set x and y coordinate.
             </summary>

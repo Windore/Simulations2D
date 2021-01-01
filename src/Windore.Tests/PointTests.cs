@@ -11,7 +11,7 @@ namespace Tests
         {
             Point point = new Point(5, 3);
             Point point1 = new Point(9, 6);
-            Assert.AreEqual(5f, point.DistanceTo(point1));
+            Assert.AreEqual(5d, point.DistanceTo(point1));
         }
 
         [Test]
@@ -19,7 +19,7 @@ namespace Tests
         {
             Point point = new Point(5, 3);
             Point point1 = new Point(1, 0);
-            Assert.AreEqual(5f, point.DistanceTo(point1));
+            Assert.AreEqual(5d, point.DistanceTo(point1));
         }
     }
 }

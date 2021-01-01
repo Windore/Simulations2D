@@ -32,12 +32,12 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Gets the width of the SimulationScene
         /// </summary>
-        public float Width { get; }
+        public double Width { get; }
 
         /// <summary>
         /// Gets the height of the SimulationScene
         /// </summary>
-        public float Height { get; }
+        public double Height { get; }
 
         /// <summary>
         /// Gets the amount of updates this SimulationScene has done
@@ -50,7 +50,7 @@ namespace Windore.Simulations2D
         /// <param name="width">The Width of the new SimulationScene</param>
         /// <param name="height">The Height of the new SimulationScene</param>
         /// <exception cref="ArgumentException">Width or height is set below zero</exception>
-        public SimulationScene(float width, float height)
+        public SimulationScene(double width, double height)
         {
             if (width < 0 || height < 0)
             {

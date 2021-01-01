@@ -11,18 +11,18 @@ namespace Windore.Simulations2D.Util.SMath
         /// <summary>
         /// Gets or sets the x-coordinate of the point.
         /// </summary>
-        public float X { get; private set; }
+        public double X { get; private set; }
         /// <summary>
         /// Gets or sets the y-coordinate of the point.
         /// </summary>
-        public float Y { get; private set; }
+        public double Y { get; private set; }
 
         /// <summary>
         /// Initializes a new Point instance with the set x and y coordinate.
         /// </summary>
         /// <param name="x">The x-coordinate</param>
         /// <param name="y">The y-coordinate</param>
-        public Point(float x, float y)
+        public Point(double x, double y)
         {
             X = x;
             Y = y;
@@ -33,9 +33,9 @@ namespace Windore.Simulations2D.Util.SMath
         /// </summary>
         /// <param name="p">The point to calculate the distance to</param>
         /// <returns>The distance to a specified point</returns>
-        public float DistanceTo(Point p)
+        public double DistanceTo(Point p)
         {
-            return (float)Math.Sqrt(DistanceToSqr(p));
+            return Math.Sqrt(DistanceToSqr(p));
         }
 
         /// <summary>

@@ -24,8 +24,8 @@ namespace Windore.Simulations2D.UI
              * If the window is larger / smaller than the simulation scene then the sizes and positions of SimulationObjects
              * need to be adjusted.
              */
-            xScale = width / manager.SimulationScene.Width;
-            yScale = height / manager.SimulationScene.Height;
+            xScale = width / (float)manager.SimulationScene.Width;
+            yScale = height / (float)manager.SimulationScene.Height;
             sizeScale = (xScale + yScale) / 2f;
 
             Thread windowThread = new Thread(new ThreadStart(() => Open(width, height, title)));
@@ -82,13 +82,13 @@ namespace Windore.Simulations2D.UI
             {
                 CircleShape shape = obj.Shape switch
                 {
-                    Shape.Circle => new CircleShape(obj.Size * sizeScale),
-                    Shape.Square => new CircleShape(obj.Size * sizeScale, 4),
-                    Shape.Triangle => new CircleShape(obj.Size * sizeScale, 3),
-                    _ => new CircleShape(obj.Size * sizeScale),
+                    Shape.Circle => new CircleShape((float)obj.Size * sizeScale),
+                    Shape.Square => new CircleShape((float)obj.Size * sizeScale, 4),
+                    Shape.Triangle => new CircleShape((float)obj.Size * sizeScale, 3),
+                    _ => new CircleShape((float)obj.Size * sizeScale),
                 };
 
-                shape.Position = new SFML.System.Vector2f(xScale * obj.Position.X, yScale * obj.Position.Y);
+                shape.Position = new SFML.System.Vector2f(xScale * (float)obj.Position.X, yScale * (float)obj.Position.Y);
                 shape.FillColor = obj.Color;
 
                 if (Mouse.IsButtonPressed(Mouse.Button.Left) && obj != selectedObject)
