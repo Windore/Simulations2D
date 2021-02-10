@@ -40,6 +40,8 @@ namespace Windore.Simulations2D.UI
         private void Open(uint width, uint height, string title)
         {
             window = new RenderWindow(new VideoMode(width, height), title, Styles.Close);
+
+            // Yes, this is required, or I atleast think it is
             window.Closed += (sender, e) => window.Close();
             MainLoop();
         }
@@ -59,14 +61,20 @@ namespace Windore.Simulations2D.UI
                 }
                 else
                 {
+                    // This should be fixed later. Currently at idle the cpu is being used which is not good. 
+                    // Also there is a small latency when selecting objects because of the Thread.Sleep()
+
                     Thread.Sleep(100);
                     window.DispatchEvents();
+
                     window.Clear(Color.White);
+                    DrawSimulation();
                     window.Display();
+
                 }
 
                 if (shouldClose)
-                {
+                {                
                     window.Close();
                 }
             }
@@ -78,6 +86,8 @@ namespace Windore.Simulations2D.UI
 
         private void DrawSimulation()
         {
+            bool isSelectedSet = false;
+
             foreach(SimulationObject obj in manager.SimulationScene.SimulationObjects)
             {
                 CircleShape shape = obj.Shape switch
@@ -94,10 +104,11 @@ namespace Windore.Simulations2D.UI
                 if (Mouse.IsButtonPressed(Mouse.Button.Left) && obj != selectedObject)
                 {
                     SFML.System.Vector2f pos = window.MapPixelToCoords(Mouse.GetPosition(window));
-                    if (shape.GetGlobalBounds().Contains(pos.X, pos.Y))
+                    if (shape.GetGlobalBounds().Contains(pos.X, pos.Y) && !isSelectedSet)
                     {
                         selectedObject = obj;
                         obj.OnSelect();
+                        isSelectedSet = true;
                     }
                 }
 
