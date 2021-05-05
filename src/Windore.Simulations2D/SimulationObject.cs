@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Windore.Simulations2D.UI;
 using Windore.Simulations2D.Util.SMath;
+using Windore.Simulations2D.Util;
 
 namespace Windore.Simulations2D
 {
@@ -14,16 +14,13 @@ namespace Windore.Simulations2D
         /// </summary>
         public bool IsRemoved { get; internal set; } = false;
 
-        private Point position;
-        private double size;
-
         /// <summary>
         /// Gets the current scene the SimulationObject is in.
         /// </summary>
         public SimulationScene Scene { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the current visual Shape of the SimulationObject
+        /// Gets or sets the current shape of the SimulationObject
         /// </summary>
         public Shape Shape { get; set; }
 
@@ -34,50 +31,31 @@ namespace Windore.Simulations2D
         /// </summary>
         public Point Position
         {
-            get => position;
+            get => Shape.Position;
             set
             {
-                position = value;
+                Point newPos = value;
+                if (Scene != null)
+                {
+                    newPos = new Point(SMath.Clamp(value.X, 0, Scene.Width), SMath.Clamp(value.Y, 0, Scene.Height));
+                }
 
-                ClampPosition();
+                Shape = Shape.Move(newPos);
             }
         }
 
         /// <summary>
         /// Gets or sets the current Color of the SimulationObject
         /// </summary>
-        public SFML.Graphics.Color Color { get; set; }
-        /// <summary>
-        /// Gets or sets the size of the SimulationObject. Affects calculations and visuals
-        /// <para>For calculations the size expresses the diameter of the circle.</para>
-        /// <para>For visuals the size may express different things: </para>
-        /// <list type="bullet">
-        ///     <item>Circle: diameter length</item>
-        ///     <item>Square: side length</item>
-        ///     <item>Triangle: side length</item>
-        /// </list>
-        /// </summary>
-        public double Size
-        {
-            get => size;
-            set
-            {
-                if (double.IsNaN(value) || double.IsInfinity(value) || double.IsNegative(value))
-                    return;
-
-                size = value;
-            }
-        }
+        public Color Color { get; set; }
 
         /// <summary>
         /// Initializes a new SimulationObject instance with the set position, shape, color and size.
         /// </summary>
-        protected SimulationObject(Point position, Shape shape, SFML.Graphics.Color color, double size)
+        protected SimulationObject(Shape shape, Color color)
         {
-            Position = position;
             Shape = shape;
             Color = color;
-            Size = size;
         }
 
         /// <summary>
@@ -92,11 +70,7 @@ namespace Windore.Simulations2D
         /// <returns>True when the current SimulationObject is overlapping with a specified SimulationObject</returns>
         public bool OverlappingWith(SimulationObject simulationObject)
         {
-            // If either or both SimulationObjects are removed they can't overlap
-            if (this.IsRemoved || simulationObject.IsRemoved) return false;
-
-            double combinedRadius = Size / 2D + simulationObject.Size / 2D;
-            return Position.DistanceTo(simulationObject.Position) < combinedRadius;
+            return Shape.Overlaps(simulationObject.Shape);
         }
 
         /// <summary>
@@ -139,17 +113,6 @@ namespace Windore.Simulations2D
             {
                 Point a = new Point(target.X - Position.X, target.Y - Position.Y);
                 Position = new Point(Position.X + a.X / magnitude * distance, Position.Y + a.Y / magnitude * distance);
-            }
-        }
-
-        /// <summary>
-        /// Clamps the SimulationObject's position to fit in the current SimulationScene
-        /// </summary>
-        internal void ClampPosition()
-        {
-            if (Scene != null)
-            {
-                position = new Point(SMath.Clamp(position.X, 0, Scene.Width), SMath.Clamp(position.Y, 0, Scene.Height));
             }
         }
 

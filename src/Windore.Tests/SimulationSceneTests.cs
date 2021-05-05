@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
-using Windore.Simulations2D;
 using Windore.Simulations2D.Util.SMath;
+using Windore.Simulations2D.Util;
 
-namespace Tests
+namespace Windore.Simulations2D.Tests
 {
     [TestFixture]
     public class SimulationSceneTests
@@ -13,7 +14,7 @@ namespace Tests
             private readonly List<int> list;
 
             public int Number { get; private set; }
-            public SimulationObjectTestClass(int number, List<int> callOrderList = null) : base(new Point(0, 0), Windore.Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
+            public SimulationObjectTestClass(int number, List<int> callOrderList = null) : base(new Shape(new Point(0, 0), 10, 10, true), new Color())
             {
                 Number = number;
                 list = callOrderList;
@@ -29,9 +30,14 @@ namespace Tests
             }
         }
 
+        [Test]
+        public void SimulationScene_WidthOrHeightNonPositive()
+        {
+            Assert.Throws<ArgumentException>(() => { new SimulationScene(-1, 0); } );
+        }
 
         [Test]
-        public void UpdateTest1()
+        public void UpdateTest()
         {
             SimulationScene scene = new SimulationScene(100, 100);
 
@@ -47,14 +53,8 @@ namespace Tests
             int[] expected = { 1, 2, 3 };
             int[] result = { o1.Number, o2.Number, o3.Number };
 
-            for (int i = 0; i < expected.Length; i++)
-            {
-                if (expected[i] != result[i])
-                {
-                    Assert.Fail(string.Format("Expected result {0} got {1}", expected[i], result[i]));
-                    return;
-                }
-            }
+            CollectionAssert.AreEqual(expected, result);
+            Assert.AreEqual(1, scene.Age);
         }
 
         [Test]
@@ -74,14 +74,7 @@ namespace Tests
 
             scene.Update();
 
-            for (int i = 0; i < 6; i++)
-            {
-                if (i != callOrderList[i])
-                {
-                    Assert.Fail("Expected result {0} got {1}", i, callOrderList[i]);
-                    return;
-                }
-            }
+            CollectionAssert.AreEqual(new int[] { 0, 1, 2, 3, 4, 5 }, callOrderList);
         }
 
         [Test]
@@ -90,9 +83,6 @@ namespace Tests
             SimulationScene scene = new SimulationScene(100, 100);
             SimulationObjectTestClass o1 = new SimulationObjectTestClass(0);
             scene.Add(o1);
-
-            scene.Update();
-
             o1.Remove();
 
             Assert.IsTrue(scene.SimulationObjects.Contains(o1));
@@ -104,53 +94,10 @@ namespace Tests
             SimulationScene scene = new SimulationScene(100, 100);
             SimulationObjectTestClass o1 = new SimulationObjectTestClass(0);
             scene.Add(o1);
-            scene.Update();
             o1.Remove();
             scene.Update();
 
-            Assert.IsTrue(!scene.SimulationObjects.Contains(o1));
-        }
-
-        [Test]
-        public void UpdateTest()
-        {
-            TestObj obj = new TestObj
-            {
-                Position = new Point(100, 100)
-            };
-            TestObj obj1 = new TestObj
-            {
-                Position = new Point(95, 95)
-            };
-            TestObj obj2 = new TestObj
-            {
-                Position = new Point(40, 10)
-            };
-            TestObj obj3 = new TestObj
-            {
-                Position = new Point(105, 103)
-            };
-
-            SimulationScene scene = new SimulationScene(200, 200);
-            scene.AddAll(obj, obj1, obj2, obj3);
-
-            scene.Update();
-
-            Assert.AreEqual(2, obj.ObjectsInRange);
-        }
-
-        private class TestObj : SimulationObject
-        {
-            public TestObj() : base(new Point(0, 0), Windore.Simulations2D.UI.Shape.Circle, new SFML.Graphics.Color(), 10)
-            {
-            }
-
-            public override void Update()
-            {
-                ObjectsInRange = GetSimulationObjectsInRange(10).Count;
-            }
-
-            public int ObjectsInRange { get; set; }
+            Assert.IsFalse(scene.SimulationObjects.Contains(o1));
         }
     }
 }

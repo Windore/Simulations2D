@@ -11,11 +11,11 @@ namespace Windore.Simulations2D.Util.SMath
         /// <summary>
         /// Gets or sets the x-coordinate of the point.
         /// </summary>
-        public double X { get; private set; }
+        public double X { get; }
         /// <summary>
         /// Gets or sets the y-coordinate of the point.
         /// </summary>
-        public double Y { get; private set; }
+        public double Y { get; }
 
         /// <summary>
         /// Initializes a new Point instance with the set x and y coordinate.

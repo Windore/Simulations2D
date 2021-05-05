@@ -1,16 +1,15 @@
-﻿using Windore.Simulations2D.UI;
-using System.Threading;
+﻿using System.Threading;
 using System;
 using System.Diagnostics;
 
 namespace Windore.Simulations2D
 {
     /// <summary>
-    /// Provides a class for controlling SimulationScenes and creating UI
+    /// Provides a class for controlling a SimulationScene and managing UI
     /// </summary>
     public class SimulationManager
     {
-        private SimulationWindow window;
+        private readonly ISimulationUI ui;
         private Thread simulationThread;
         private volatile bool uiRunning = false;
         private volatile bool simulationRunning = false;
@@ -35,9 +34,12 @@ namespace Windore.Simulations2D
         /// Initializes a new SimulationManager instance
         /// </summary>
         /// <param name="scene">A SimulationScene to manage</param>
-        public SimulationManager(SimulationScene scene)
+        /// <param name="ui">An UI to update with the simulation</param>
+        public SimulationManager(SimulationScene scene, ISimulationUI ui)
         {
             SimulationScene = scene;
+            this.ui = ui;
+            ui.SetSimulationManager(this);
         }
 
         /// <summary>
@@ -52,6 +54,7 @@ namespace Windore.Simulations2D
             simulationThread = new Thread(new ThreadStart(UpdateLoop));
             simulationThread.Start();
             SimulationRunning = true;
+            ui.Start();
         }
 
         /// <summary>
@@ -62,12 +65,8 @@ namespace Windore.Simulations2D
             if (!SimulationRunning) return;
 
             SimulationRunning = false;
+            ui.Stop();
         }
-
-        /// <summary>
-        /// Occurs when SimulationWindow is closed
-        /// </summary>
-        protected internal virtual void OnSimulationWindowClose() {}
 
         /// <summary>
         /// Occurs every time before calling update
@@ -111,32 +110,5 @@ namespace Windore.Simulations2D
         /// Occurs every time after calling update
         /// </summary>
         protected virtual void AfterUpdate() {}
-
-        /// <summary>
-        /// Opens a SimulationWindow
-        /// </summary>
-        /// <param name="width">The width of the window</param>
-        /// <param name="height">The height of the window</param>
-        /// <param name="title">The title of the window</param>
-        public void OpenSimulationWindow(uint width, uint height, string title)
-        {
-            if (UIRunning)
-                return;
-
-            UIRunning = true;
-            window = new SimulationWindow(width, height, this, title);
-        }
-
-        /// <summary>
-        /// Closes the active SimulationWindow
-        /// </summary>
-        public void CloseSimulationWindow()
-        {
-            if (!UIRunning)
-                return;
-
-            UIRunning = false;
-            window.Close();
-        }
     }
 }

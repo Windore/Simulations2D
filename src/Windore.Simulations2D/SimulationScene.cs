@@ -52,9 +52,9 @@ namespace Windore.Simulations2D
         /// <exception cref="ArgumentException">Width or height is set below zero</exception>
         public SimulationScene(double width, double height)
         {
-            if (width < 0 || height < 0)
+            if (width <= 0 || height <= 0)
             {
-                throw new ArgumentException("Width or height cannot be negative");
+                throw new ArgumentException("Width or height cannot be negative or zero");
             }
 
             Width = width;
@@ -71,7 +71,7 @@ namespace Windore.Simulations2D
         {
             Age++;
 
-            // This lock is not very optimal but the container shouldn't be usually accessed from multiple threads.
+            // Tthe container shouldn't be accessed from multiple threads.
             lock (simulationContainerLock)
             {
                 container.Clear();
@@ -108,6 +108,9 @@ namespace Windore.Simulations2D
             {
                 simulationObjects.Add(simulationObject);
                 simulationObject.Scene = this;
+
+                // The reason for this hack is to clamp the simulation object's position to fit the scene.
+                simulationObject.Position = simulationObject.Position;
             }
         }
 

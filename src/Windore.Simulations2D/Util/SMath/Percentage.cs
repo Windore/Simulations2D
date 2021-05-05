@@ -11,7 +11,7 @@ namespace Windore.Simulations2D.Util.SMath
         private readonly double value = 0;
 
         /// <summary>
-        /// Initializes a new Percentage instance from a percentage amount e.g 20.
+        /// Initializes a new Percentage instance from a percentage amount e.g 20 => 20%
         /// </summary>
         /// <param name="percentage">A percentage amount</param>
         public Percentage(double percentage)
@@ -20,11 +20,11 @@ namespace Windore.Simulations2D.Util.SMath
         }
 
         /// <summary>
-        /// Initializes a new Percentage instance from a number e.g 0.2.
+        /// Initializes a new Percentage instance from a number e.g 0.2 => 20%
         /// </summary>
         /// <param name="number">A double number</param>
         /// <returns></returns>
-        public static Percentage FromDecimal(double number)
+        public static Percentage FromDouble(double number)
         {
             return new Percentage(number * 100d);
         }
@@ -62,11 +62,11 @@ namespace Windore.Simulations2D.Util.SMath
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static implicit operator double(Percentage percentage) => percentage.value;
         public static Percentage operator +(Percentage a) => a;
-        public static Percentage operator -(Percentage a) => FromDecimal(a.value);
-        public static Percentage operator +(Percentage a, Percentage b) => FromDecimal(a.value + b.value);
-        public static Percentage operator -(Percentage a, Percentage b) => FromDecimal(a.value - b.value);
-        public static Percentage operator *(Percentage a, Percentage b) => FromDecimal(a.value * b.value);
-        public static Percentage operator /(Percentage a, Percentage b) => FromDecimal(a.value / b.value);
+        public static Percentage operator -(Percentage a) => FromDouble(a.value);
+        public static Percentage operator +(Percentage a, Percentage b) => FromDouble(a.value + b.value);
+        public static Percentage operator -(Percentage a, Percentage b) => FromDouble(a.value - b.value);
+        public static Percentage operator *(Percentage a, Percentage b) => FromDouble(a.value * b.value);
+        public static Percentage operator /(Percentage a, Percentage b) => FromDouble(a.value / b.value);
         public static bool operator <(Percentage a, Percentage b) => a.value < b.value;
         public static bool operator >(Percentage a, Percentage b) => a.value > b.value;
         public static bool operator ==(Percentage a, Percentage b) => a.Equals(b);

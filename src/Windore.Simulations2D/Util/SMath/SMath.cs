@@ -18,8 +18,8 @@ namespace Windore.Simulations2D.Util.SMath
         /// <returns>The clamped value</returns>
         public static double Clamp(double value, double min, double max)
         {
-            if (value < min) { value = min; }
-            if (value > max) { value = max; }
+            if (value < min) { return min; }
+            if (value > max) { return max; }
             return value;
         }
 

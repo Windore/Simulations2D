@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using Windore.Simulations2D.UI;
+using Windore.Simulations2D.GUI;
 using Windore.Simulations2D.Util;
 
 namespace Windore.Simulations2D.ExampleApp 

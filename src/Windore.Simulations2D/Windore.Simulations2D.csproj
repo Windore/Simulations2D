@@ -6,16 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Simulations2D.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Simulations2D.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Simulations2D.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Simulations2D.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="SFML.Graphics" Version="2.5.0" />
-    <PackageReference Include="SFML.Window" Version="2.5.0" />
-  </ItemGroup>
 
 </Project>

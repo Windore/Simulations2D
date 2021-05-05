@@ -4,7 +4,7 @@ using Windore.Simulations2D.Util.SMath;
 namespace Windore.Simulations2D.Util
 {
     /// <summary>
-    /// Provides methods for pseudo-random value generation and helps to track and set the seed the generator.
+    /// Provides methods for pseudo-random value generation and helps to track and set the seed of the generator.
     /// </summary>
     public class SRandom
     {
@@ -74,17 +74,30 @@ namespace Windore.Simulations2D.Util
         }
 
         /// <summary>
-        /// Returns a random point with a max X and Y value.
+        /// Returns a random positive point with a max X and Y value.
         /// </summary>
         /// <param name="maxX">Max X value</param>
         /// <param name="maxY">Max Y value</param>
         /// <returns>A random point with a max X and Y value.</returns>
-        public Point Point(int maxX, int maxY) 
+        public Point Point(double maxX, double maxY) 
         {
-            int x = Integer(0, maxX);
-            int y = Integer(0, maxY);
+            return Point(maxX, maxY, 0, 0);
+        }
 
-            return new Point(x,y);
+        /// <summary>
+        /// Returns a random positive point with a max X and Y value.
+        /// </summary>
+        /// <param name="maxX">Max X value</param>
+        /// <param name="maxY">Max Y value</param>
+        /// <param name="minX">Min X value</param>
+        /// <param name="minY">Min Y value</param>
+        /// <returns>A random point with a max X and Y value.</returns>
+        public Point Point(double maxX, double maxY, double minX, double minY)
+        {
+            double x = Double(minX, maxX);
+            double y = Double(minY, maxY);
+
+            return new Point(x, y);
         }
     }
 }
