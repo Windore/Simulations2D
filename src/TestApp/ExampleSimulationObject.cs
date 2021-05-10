@@ -1,27 +1,26 @@
-using Windore.Simulations2D.UI;
 using Windore.Simulations2D.Util.SMath;
 using Windore.Simulations2D.Util;
 
-namespace Windore.Simulations2D.ExampleApp
+namespace Windore.Simulations2D.TestApp
 {
     // This is a custom SimulationObject, you will always have to define one.
     public class ExampleSimulationObject : SimulationObject
     {
         // This boolean is used to keep track if this object is infected
         private bool inf = false;
-        internal bool IsInfected  
+        internal bool IsInfected
         {
             get => inf;
             set
             {
                 // If this object gets infected its color and shape are changed.
                 inf = value;
-                if (inf) 
+                if (inf)
                 {
-                    Shape = Shape.Triangle;
-                    Color = new SFML.Graphics.Color(255, 0,0);
+                    Shape = new Shape(Position, 7, 7, false);
+                    Color = new Color(255, 0, 0);
                 }
-            } 
+            }
         }
 
         // The random target position of the object
@@ -30,7 +29,7 @@ namespace Windore.Simulations2D.ExampleApp
 
         // A constructor which calls the base constructor setting the color to be green and the shape to be a circle.
         // The object's starting point is (500, 500) and size 7
-        public ExampleSimulationObject(bool infected) : base(new Point(500, 500), Shape.Circle, new SFML.Graphics.Color(0, 255,0), 7) 
+        public ExampleSimulationObject(bool infected) : base(new Shape(new Point(500, 500), 7, 7, true), new Color(0, 255, 0)) //: base(new Point(500, 500), Shape.Circle, , 7) 
         {
             // Set the position to be a new random position.
             // Hard coding the min and max values of x and y is not that smart, 

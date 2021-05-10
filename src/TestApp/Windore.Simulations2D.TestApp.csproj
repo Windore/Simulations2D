@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.3" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
+   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windore.Simulations2D.GUI\Windore.Simulations2D.GUI.csproj" />
+    <ProjectReference Include="..\Windore.Simulations2D\Windore.Simulations2D.csproj" />
+  </ItemGroup>
+</Project>

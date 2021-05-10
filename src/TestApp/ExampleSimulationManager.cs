@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Windore.Simulations2D.GUI;
 using Windore.Simulations2D.Util;
 
-namespace Windore.Simulations2D.ExampleApp 
+namespace Windore.Simulations2D.TestApp
 {
     // Custom SimulationManagers are not necessary but using them allows doing more things
     class ExampleSimulationManager : SimulationManager 
@@ -27,7 +27,7 @@ namespace Windore.Simulations2D.ExampleApp
         Stopwatch s = new Stopwatch();
 
         // Constructor calls the base costructor and creates a new SimulationScene with a size of 1000²
-        public ExampleSimulationManager() : base(new SimulationScene(1000, 1000)) 
+        public ExampleSimulationManager(ISimulationUI ui) : base(new SimulationScene(1000, 1000), ui) 
         {
             Instance = this;
 
@@ -69,6 +69,8 @@ namespace Windore.Simulations2D.ExampleApp
             }
 
             avgUps += (ups - avgUps) / qty;
+
+            return;
 
             // Write data about the simulation to the console
             Console.Clear();

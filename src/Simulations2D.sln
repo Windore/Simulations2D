@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windore.Simulations2D.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windore.Simulations2D.GUI", "Windore.Simulations2D.GUI\Windore.Simulations2D.GUI.csproj", "{BDFD021B-54B2-4DC0-9D5C-C341288303F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windore.Simulations2D.Benchmarks", "Windore.Simulations2D.Benchmarks\Windore.Simulations2D.Benchmarks.csproj", "{7001F4ED-BF1A-44C6-8488-6F2320409E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windore.Simulations2D.Benchmarks", "Windore.Simulations2D.Benchmarks\Windore.Simulations2D.Benchmarks.csproj", "{7001F4ED-BF1A-44C6-8488-6F2320409E5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windore.Simulations2D.TestApp", "TestApp\Windore.Simulations2D.TestApp.csproj", "{823B0E7C-4CE7-404C-B31C-C8B73B1AD24A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7001F4ED-BF1A-44C6-8488-6F2320409E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7001F4ED-BF1A-44C6-8488-6F2320409E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7001F4ED-BF1A-44C6-8488-6F2320409E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823B0E7C-4CE7-404C-B31C-C8B73B1AD24A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823B0E7C-4CE7-404C-B31C-C8B73B1AD24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823B0E7C-4CE7-404C-B31C-C8B73B1AD24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823B0E7C-4CE7-404C-B31C-C8B73B1AD24A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
