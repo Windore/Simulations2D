@@ -46,7 +46,8 @@ namespace Windore.Simulations2D.Util.SMath
         /// <returns>True if the current and the given shape overlap.</returns>
         public bool Overlaps(Shape shape) 
         {
-            return false;
+            double avrg = (Width + Height) / 2d;
+            return Position.DistanceToSqr(shape.Position) < avrg*avrg;
         }
 
         /// <summary>

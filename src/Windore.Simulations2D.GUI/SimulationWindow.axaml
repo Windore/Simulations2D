@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:controls="clr-namespace:Windore.Simulations2D.GUI"
+        x:Class="Windore.Simulations2D.GUI.SimulationWindow"
+        Title="SimulationWindow" CanResize="False">
+  <Grid>
+    <StackPanel Orientation="Vertical">
+      <StackPanel Orientation="Horizontal">
+        <Button Click="SwitchViewMode" Name="scaleSwitchBtn"></Button>
+        <Button Click="SwitchPause" Name="pauseSwitchBtn"></Button>
+        <Button Click="AdvanceOneUpdate">Advance one update</Button>
+      </StackPanel>
+      <ScrollViewer Width="500" Height="500" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Name="scrollViewer">
+        <controls:SimulationView Name="simulationView"/>
+      </ScrollViewer>
+    </StackPanel>
+  </Grid>
+</Window>
