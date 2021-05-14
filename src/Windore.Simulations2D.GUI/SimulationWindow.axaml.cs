@@ -26,7 +26,7 @@ namespace Windore.Simulations2D.GUI
             timer.Tick += (_, __) => Tick();
             view.SimulationObjects = new ObservableCollection<SimulationObject>();
             ShowScaledToView();
-            scaleSwitchBtn.Content = "Show in simulation size";
+            scaleSwitchBtn.Content = "Show real size";
             pauseSwitchBtn.Content = "Pause";
             
             LayoutUpdated += (_,__) => 
@@ -38,6 +38,37 @@ namespace Windore.Simulations2D.GUI
                 {
                     view.Width = scrollViewer.Width;
                     view.Height = scrollViewer.Height;
+                }
+            };
+
+            bool isClosing = false;
+            bool popupVisible = false;
+            Closing += async (s, e) => 
+            {
+                // This weird thing with isClosing bool is used to let the popup window return a result
+                
+                // Basically if the window is closing make sure that closing is wanted
+                // then set isClosing to true and call Close method again
+                if (isClosing) return;
+
+                e.Cancel = true;
+
+                // Don't show multiple closing dialogues
+                if (popupVisible) return;
+                
+                popupVisible = true;
+                PopupWindow closingDialog = new PopupWindow(PopupWindow.PopupButtons.YesNo, "Are you sure you want to quit? This will stop the simulation.");
+                PopupWindow.PopupResult result = await closingDialog.ShowDialog<PopupWindow.PopupResult>(this);
+                
+                if (result == PopupWindow.PopupResult.Yes) 
+                {
+                   manager.StopSimulation();
+                   isClosing = true;
+                   Close();
+                }
+                else 
+                {
+                   popupVisible = false;
                 }
             };
         }
@@ -56,12 +87,12 @@ namespace Windore.Simulations2D.GUI
             if (view.ScaleToSize) 
             {
                 ShowInRealSize();
-                scaleSwitchBtn.Content = "Show overview";
+                scaleSwitchBtn.Content = "Show scaled";
             }
             else 
             {
                 ShowScaledToView();
-                scaleSwitchBtn.Content = "Show in simulation size";
+                scaleSwitchBtn.Content = "Show real size";
             }
         }
 
@@ -71,6 +102,9 @@ namespace Windore.Simulations2D.GUI
             {
                 manager.StopSimulation();
                 pauseSwitchBtn.Content = "Resume";
+
+                // Update the window since often it will be just a little bit late.
+                Tick();
             }
             else
             {
