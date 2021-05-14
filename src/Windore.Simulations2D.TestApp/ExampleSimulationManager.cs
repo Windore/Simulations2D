@@ -70,26 +70,6 @@ namespace Windore.Simulations2D.TestApp
 
             avgUps += (ups - avgUps) / qty;
 
-            return;
-
-            // Write data about the simulation to the console
-            Console.Clear();
-            Console.WriteLine("Simulation Objects: " + SimulationScene.SimulationObjects.Count);
-            Console.WriteLine("Infected: " + InfectedCounter);
-            Console.WriteLine("Average Updates Per Second: " + Math.Round(avgUps, 3));
-            Console.WriteLine("Randomness Seed: " + SimulationRandom.Seed);
-
-            // Now if a simulatioObject is selected and is not removed...
-            // (The object needs to be checked for removal because when it's removed from the scene the object here wont be deleted)
-            if (Selected != null && !Selected.IsRemoved) 
-            {
-                // ...data about the selected object can be written on the console
-                Console.WriteLine();
-                Console.WriteLine("Selected Simulation Object:");
-                Console.WriteLine("Is Infected: " + Selected.IsInfected);
-                Console.WriteLine("Target Position: " + Selected.TargetPosition);
-            }
-
             s.Reset();
             s.Start();
         }

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Windore.Simulations2D.GUI;
 
 namespace Windore.Simulations2D.TestApp
 {
@@ -15,10 +16,20 @@ namespace Windore.Simulations2D.TestApp
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow();
+                SimulationWindow window = new SimulationWindow();
+                ExampleSimulationManager manager = new ExampleSimulationManager(window);
+
+                window.Show();
+                manager.StartSimulation();
+
+                window.Closed += (_, __) => manager.StopSimulation();
+
+                desktop.MainWindow = window;
             }
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        public class MainWindow{}
     }
 }
