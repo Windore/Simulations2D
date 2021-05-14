@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Rendering.SceneGraph;
-using Avalonia.Threading;
-using System.Linq;
 using Windore.Simulations2D.Util.SMath;
-using System;
-using Avalonia.Markup.Xaml;
 
 namespace Windore.Simulations2D.GUI
 {

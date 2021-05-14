@@ -28,6 +28,18 @@ namespace Windore.Simulations2D.GUI
             ShowScaledToView();
             scaleSwitchBtn.Content = "Show in simulation size";
             pauseSwitchBtn.Content = "Pause";
+            
+            LayoutUpdated += (_,__) => 
+            {
+                scrollViewer.Width = Width - 250;
+                scrollViewer.Height = Height - 50;
+
+                if (view.ScaleToSize)
+                {
+                    view.Width = scrollViewer.Width;
+                    view.Height = scrollViewer.Height;
+                }
+            };
         }
 
         private void InitializeComponent()
