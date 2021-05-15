@@ -11,7 +11,6 @@ namespace Windore.Simulations2D
     {
         private readonly ISimulationUI ui;
         private Thread simulationThread;
-        private volatile bool uiRunning = false;
         private volatile bool simulationRunning = false;
         private int maxUps = 0;
 
@@ -21,9 +20,9 @@ namespace Windore.Simulations2D
         public SimulationScene SimulationScene { get; private set; }
 
         /// <summary>
-        /// Gets or sets whether the SimulationWindow is open
+        /// Gets the current simulation UI
         /// </summary>
-        public bool UIRunning { get => uiRunning; internal set => uiRunning = value; }
+        protected ISimulationUI UI { get => ui; }
 
         /// <summary>
         /// Gets whether SimulationScene is updated

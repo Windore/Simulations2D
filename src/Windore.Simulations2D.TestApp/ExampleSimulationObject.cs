@@ -87,7 +87,7 @@ namespace Windore.Simulations2D.TestApp
         }
         
         // This method gets called everytime this SimulationObject is clicked.
-        protected override void OnSelect() 
+        public override void OnSelect() 
         {
             // Here it's used to set the Selected property of the manager.
             ExampleSimulationManager.Instance.Selected = this;

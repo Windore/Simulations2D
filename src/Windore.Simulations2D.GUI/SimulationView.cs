@@ -44,6 +44,7 @@ namespace Windore.Simulations2D.GUI
                 if (clickShape.Overlaps(obj.Shape)) 
                 {
                     SelectedSimulationObject = obj;
+                    obj.OnSelect();
                     return;
                 }
             }

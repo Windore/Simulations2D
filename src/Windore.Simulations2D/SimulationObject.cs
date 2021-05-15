@@ -119,6 +119,6 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Occurs every time this SimulationObject is selected
         /// </summary>
-        protected internal virtual void OnSelect() { }
+        public virtual void OnSelect() { }
     }
 }

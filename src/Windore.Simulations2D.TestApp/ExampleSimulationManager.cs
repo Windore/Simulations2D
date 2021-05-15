@@ -2,6 +2,9 @@ using System.IO;
 using System.Diagnostics;
 using Windore.Simulations2D.Util;
 using Windore.Simulations2D.Data;
+using Windore.Simulations2D.GUI;
+using Avalonia.Controls;
+using Avalonia.Threading;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -110,6 +113,50 @@ namespace Windore.Simulations2D.TestApp
                     .ForEach(obj => data.Add(obj.Key, obj.Value));
 
                 logger.Log(data);
+
+                // Not the best way to update UI. A better version would be
+                // to make a new class for maniging the side panel UI
+                // but this is fine for this test project
+                Dispatcher.UIThread.InvokeAsync(() => 
+                {
+                    ((SimulationWindow)UI).SetSidePanelContent(new TextBlock() 
+                    {
+                        Margin = new Avalonia.Thickness(5),
+                        FontSize = 16,
+                        Text = "Test simulaton"
+                    });
+
+                    ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
+                    {
+                        Margin = new Avalonia.Thickness(5),
+                        Text = $"Age: {data["Age"].Value}\nSimulationObjects count: {data["SimulationObjectsCount"].Value}\nInfected: {data["InfectedCounter"].Value}"
+                    });
+
+                    ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
+                    {
+                        Margin = new Avalonia.Thickness(5),
+                        FontSize = 16,
+                        Text = "Selected object"
+                    });
+
+                    if (Selected == null || Selected.IsRemoved) 
+                    {
+                        ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
+                        {
+                            Margin = new Avalonia.Thickness(5),
+                            Text = "No selection"
+                        });
+                    }
+                    else 
+                    {
+                        ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
+                        {
+                            Margin = new Avalonia.Thickness(5),
+                            TextWrapping = Avalonia.Media.TextWrapping.Wrap,
+                            Text = $"Target Position: {Selected.TargetPosition}\nIs Infected: {Selected.IsInfected}\nJust A Number: {Selected.Number}"
+                        });
+                    }
+                });
             }
         }
     }

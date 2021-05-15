@@ -5,10 +5,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:controls="clr-namespace:Windore.Simulations2D.GUI"
         x:Class="Windore.Simulations2D.GUI.SimulationWindow"
-        Title="SimulationWindow" CanResize="True" Width="1250" Height="800" Name="window">
-  <Grid ColumnDefinitions="200,Auto,50" RowDefinitions="Auto">
-    <StackPanel Grid.Column="0">
-      <TextBlock>Test text</TextBlock>
+        Title="SimulationWindow" CanResize="True" Width="1350" Height="800" Name="window">
+  <Grid ColumnDefinitions="300,Auto,50" RowDefinitions="Auto">
+    <StackPanel Grid.Column="0" Name="sidePanel">
     </StackPanel>
     <StackPanel Orientation="Vertical" Width="{Binding #scrollViewer.Width}" Height="{Binding #window.Height}" Grid.Column="1">
       <StackPanel Orientation="Horizontal">

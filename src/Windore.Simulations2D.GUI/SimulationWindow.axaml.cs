@@ -1,7 +1,5 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
@@ -17,6 +15,7 @@ namespace Windore.Simulations2D.GUI
         private ScrollViewer scrollViewer;
         private Button scaleSwitchBtn;
         private Button pauseSwitchBtn;
+        private StackPanel sidePanel;
 
         public SimulationWindow()
         {
@@ -31,7 +30,7 @@ namespace Windore.Simulations2D.GUI
             
             LayoutUpdated += (_,__) => 
             {
-                scrollViewer.Width = Width - 250;
+                scrollViewer.Width = Width - 350;
                 scrollViewer.Height = Height - 50;
 
                 if (view.ScaleToSize)
@@ -80,6 +79,7 @@ namespace Windore.Simulations2D.GUI
             scrollViewer = this.Find<ScrollViewer>("scrollViewer");
             scaleSwitchBtn = this.Find<Button>("scaleSwitchBtn");
             pauseSwitchBtn = this.Find<Button>("pauseSwitchBtn");
+            sidePanel = this.Find<StackPanel>("sidePanel");
         }
 
         private void SwitchViewMode(object sender, RoutedEventArgs e) 
@@ -120,6 +120,22 @@ namespace Windore.Simulations2D.GUI
                 manager.SimulationScene.Update();
                 Tick();
             }
+        }
+
+        public void SetSidePanelContent(IControl content) 
+        {
+            sidePanel.Children.Clear();
+            sidePanel.Children.Add(content);
+        }
+
+        public void AddSidePanelContent(IControl content) 
+        {
+            sidePanel.Children.Add(content);
+        }
+
+        public void ClearSidePanel() 
+        {
+            sidePanel.Children.Clear();
         }
 
         public void SetSimulationManager(SimulationManager manager)
