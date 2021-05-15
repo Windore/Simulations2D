@@ -170,6 +170,33 @@ namespace Windore.Simulations2D.Tests
         }
 
         [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsTrue3()
+        {
+            Shape a = new Shape(new Point(-25, 25), 20, 17.2d, true);
+            Shape b = new Shape(new Point(-25, 50), 30, 35, true);
+
+            Assert.IsTrue(a.Overlaps(b));
+        }
+
+        [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsTrue4()
+        {
+            Shape a = new Shape(new Point(-8, -7), 2, 6, true);
+            Shape b = new Shape(new Point(-7, -8.5), 0.4, 1, true);
+
+            Assert.IsTrue(a.Overlaps(b));
+        }
+
+        [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsTrue5()
+        {
+            Shape a = new Shape(new Point(-8, -7), 2, 6, true);
+            Shape b = new Shape(new Point(-7.5, -7.5), 0.1, 0.05, true);
+
+            Assert.IsTrue(a.Overlaps(b));
+        }
+
+        [Test]
         public void Shape_EllipseOverlapsEllipseReturnsFalse()
         {
             Shape a = new Shape(new Point(2, 2), 3, 2, true);
@@ -192,6 +219,33 @@ namespace Windore.Simulations2D.Tests
         {
             Shape a = new Shape(new Point(-3, 1), 4.5, 4, true);
             Shape b = new Shape(new Point(2, 4), 2.5, 2.5, true);
+
+            Assert.IsFalse(a.Overlaps(b));
+        }
+
+        [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsFalse3()
+        {
+            Shape a = new Shape(new Point(-8, -7), 2, 6, true);
+            Shape b = new Shape(new Point(-7, -8.5), 0.04, 0.12, true);
+
+            Assert.IsFalse(a.Overlaps(b));
+        }
+
+        [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsFalse4()
+        {
+            Shape a = new Shape(new Point(-8, -7), 2, 6, true);
+            Shape b = new Shape(new Point(-6.98, -7), 0.001, 20, true);
+
+            Assert.IsFalse(a.Overlaps(b));
+        }
+
+        [Test]
+        public void Shape_EllipseOverlapsEllipseReturnsFalse5()
+        {
+            Shape a = new Shape(new Point(-8, -7), 2, 6, true);
+            Shape b = new Shape(new Point(-8, -10.02), 20, 0.001, true);
 
             Assert.IsFalse(a.Overlaps(b));
         }

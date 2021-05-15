@@ -46,8 +46,42 @@ namespace Windore.Simulations2D.Util.SMath
         /// <returns>True if the current and the given shape overlap.</returns>
         public bool Overlaps(Shape shape) 
         {
-            double avrg = (Width + Height) / 2d;
-            return Position.DistanceToSqr(shape.Position) < avrg*avrg;
+            if (IsEllipse == shape.IsEllipse && IsEllipse) 
+            {
+                // Figure out if two ellipses overlap by stretching the ellipses to circles and measuring the stretched distance
+                // I have no clue if this actually works, but the tests haven't failed so far..
+                double xyRelationThis = Width / Height;
+                double xyRelationOther = shape.Width / shape.Height;
+
+                return Math.Pow((Position.X - shape.Position.X), 2) 
+                    + xyRelationOther * xyRelationThis * Math.Pow((Position.Y - shape.Position.Y), 2) 
+                    < Math.Pow(Width / 2d + shape.Width / 2d, 2);
+            }
+            else if (IsEllipse == shape.IsEllipse && !IsEllipse) 
+            {
+                return Math.Abs(Position.X - shape.Position.X) < Width / 2d + shape.Width / 2d
+                    && Math.Abs(Position.Y - shape.Position.Y) < Height / 2d + shape.Height / 2d;
+            }
+            else 
+            {
+                Shape ellipse;
+                Shape rectangle;
+
+                if (IsEllipse) 
+                {
+                    ellipse = this;
+                    rectangle = shape;
+                }
+                else 
+                {
+                    ellipse = shape;
+                    rectangle = this;
+                }
+
+                // Same streching principle is applied here
+                double xyRelation = ellipse.Width / ellipse.Height;
+                return SMath.CircleOverlapsRectangle(ellipse.Position, ellipse.Width, rectangle.Position, rectangle.Width, rectangle.Height * xyRelation);
+            }
         }
 
         /// <summary>
