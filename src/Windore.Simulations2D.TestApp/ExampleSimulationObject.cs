@@ -1,5 +1,6 @@
 using Windore.Simulations2D.Util.SMath;
 using Windore.Simulations2D.Util;
+using Windore.Simulations2D.Data;
 
 namespace Windore.Simulations2D.TestApp
 {
@@ -23,6 +24,9 @@ namespace Windore.Simulations2D.TestApp
             }
         }
 
+        [DataPoint("JustANumber")]
+        public double Number { get; }
+
         // The random target position of the object
         public Point TargetPosition { get; private set; }
         private float speed;
@@ -40,6 +44,8 @@ namespace Windore.Simulations2D.TestApp
 
             // create a new Random target position for the object
             NewTargetPosition();
+
+            Number = ExampleSimulationManager.Instance.SimulationRandom.Double(0, 10);
         }
 
         private void NewTargetPosition() 
