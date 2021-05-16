@@ -126,11 +126,14 @@ namespace Windore.Simulations2D.TestApp
                         Text = "Test simulaton"
                     });
 
-                    ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
+                    SimulationDataView view = new SimulationDataView() 
                     {
-                        Margin = new Avalonia.Thickness(5),
-                        Text = $"Age: {data["Age"].Value}\nSimulationObjects count: {data["SimulationObjectsCount"].Value}\nInfected: {data["InfectedCounter"].Value}"
-                    });
+                        Data = data,
+                        HideSingleValueData = false,
+                        Rounding = true
+                    };
+
+                    ((SimulationWindow)UI).AddSidePanelContent(view);
 
                     ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
                     {
