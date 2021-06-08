@@ -16,6 +16,19 @@ namespace Windore.Simulations2D.GUI
         private Button scaleSwitchBtn;
         private Button pauseSwitchBtn;
         private StackPanel sidePanel;
+        private Grid layoutGrid;
+        private StackPanel controlsStackPanel;
+        public double SidePanelWidth 
+        {
+            get => sidePanel.Width;
+            set 
+            {
+                sidePanel.Width = value;
+
+                layoutGrid.ColumnDefinitions = new ColumnDefinitions($"{sidePanel.Width},Auto,50");
+                UpdateLayout();
+            }
+        } 
 
         public SimulationWindow()
         {
@@ -23,21 +36,26 @@ namespace Windore.Simulations2D.GUI
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1d / 60d);
             timer.Tick += (_, __) => Tick();
+
+            layoutGrid.ColumnDefinitions = new ColumnDefinitions($"{sidePanel.Width},Auto,50");
+            UpdateLayout();
+
+
             view.SimulationObjects = new ObservableCollection<SimulationObject>();
             ShowScaledToView();
             scaleSwitchBtn.Content = "Show real size";
             pauseSwitchBtn.Content = "Pause";
             
+            double prevWidth = Width;
+            double prevHeight = Height;
             LayoutUpdated += (_,__) => 
             {
-                scrollViewer.Width = Width - 350;
-                scrollViewer.Height = Height - 50;
+                // UpdateLayout should be called only when Width or Height changes
+                if (Width == prevWidth && Height == prevHeight) return;
+                prevWidth = Width;
+                prevHeight = Height;
 
-                if (view.ScaleToSize)
-                {
-                    view.Width = scrollViewer.Width;
-                    view.Height = scrollViewer.Height;
-                }
+                UpdateLayout();
             };
 
             bool isClosing = false;
@@ -80,6 +98,24 @@ namespace Windore.Simulations2D.GUI
             scaleSwitchBtn = this.Find<Button>("scaleSwitchBtn");
             pauseSwitchBtn = this.Find<Button>("pauseSwitchBtn");
             sidePanel = this.Find<StackPanel>("sidePanel");
+            layoutGrid = this.Find<Grid>("layoutGrid");
+            controlsStackPanel = this.Find<StackPanel>("controlsStackPanel");
+        }
+
+        private void UpdateLayout() 
+        {
+            // Avalonia bindings are not used here because to my knowledge you cannot modify the value some value is bound to.
+            controlsStackPanel.Width = Width - sidePanel.Width - 50;
+            controlsStackPanel.Height = Height;
+
+            scrollViewer.Width = controlsStackPanel.Width;
+            scrollViewer.Height = controlsStackPanel.Height - 50;
+
+            if (view.ScaleToSize)
+            {
+                view.Width = scrollViewer.Width;
+                view.Height = scrollViewer.Height;
+            }
         }
 
         private void SwitchViewMode(object sender, RoutedEventArgs e) 

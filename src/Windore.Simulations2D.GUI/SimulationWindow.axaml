@@ -6,16 +6,16 @@
         xmlns:controls="clr-namespace:Windore.Simulations2D.GUI"
         x:Class="Windore.Simulations2D.GUI.SimulationWindow"
         Title="SimulationWindow" CanResize="True" Width="1350" Height="800" Name="window">
-  <Grid ColumnDefinitions="300,Auto,50" RowDefinitions="Auto">
-    <StackPanel Grid.Column="0" Name="sidePanel">
+  <Grid ColumnDefinitions="300,Auto,50" RowDefinitions="Auto" Name="layoutGrid">
+    <StackPanel Grid.Column="0" Name="sidePanel" Width="300">
     </StackPanel>
-    <StackPanel Orientation="Vertical" Width="{Binding #scrollViewer.Width}" Height="{Binding #window.Height}" Grid.Column="1">
+    <StackPanel Orientation="Vertical" Name="controlsStackPanel" Grid.Column="1">
       <StackPanel Orientation="Horizontal">
         <Button Click="SwitchViewMode" Name="scaleSwitchBtn"></Button>
         <Button Click="SwitchPause" Name="pauseSwitchBtn"></Button>
         <Button Click="AdvanceOneUpdate">Advance one update</Button>
       </StackPanel>
-      <ScrollViewer Width="1000" Height="750" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Name="scrollViewer">
+      <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Name="scrollViewer">
         <controls:SimulationView Name="simulationView"/>
       </ScrollViewer>
     </StackPanel>

@@ -17,6 +17,7 @@ namespace Windore.Simulations2D.TestApp
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 SimulationWindow window = new SimulationWindow();
+                window.SidePanelWidth = 400;
                 ExampleSimulationManager manager = new ExampleSimulationManager(window);
 
                 window.Show();
