@@ -119,6 +119,12 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Occurs every time this SimulationObject is selected
         /// </summary>
-        public virtual void OnSelect() { }
+        public virtual void OnSelect() 
+        {
+            if (Scene != null) 
+            {
+                Scene.SelectedSimulationObject = this;
+            }            
+        }
     }
 }

@@ -2,9 +2,6 @@ using System.IO;
 using System.Diagnostics;
 using Windore.Simulations2D.Util;
 using Windore.Simulations2D.Data;
-using Windore.Simulations2D.GUI;
-using Avalonia.Controls;
-using Avalonia.Threading;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +26,8 @@ namespace Windore.Simulations2D.TestApp
             set => ins = value;
         }
 
+        public Dictionary<string, DataCollector.Data> Data { get; private set; } = new Dictionary<string, DataCollector.Data>();
+
         // This will be used to count the number of infected SimulationObjects in the scene
         [DataPoint("InfectedCounter")]
         public int InfectedCounter { get; set;}
@@ -38,9 +37,6 @@ namespace Windore.Simulations2D.TestApp
 
         [DataPoint("Age")]
         public ulong Age { get => SimulationScene.Age; }
-
-        // This is the selected SimulationObject. You can select simulationObjects by clicking them.
-        public ExampleSimulationObject? Selected { get; set; }
 
         // A custom random class is used to keep track of the randomness seed of the simulation
         public SRandom SimulationRandom { get; private set; }
@@ -53,7 +49,7 @@ namespace Windore.Simulations2D.TestApp
         Stopwatch s = new Stopwatch();
 
         // Constructor calls the base costructor and creates a new SimulationScene with a size of 1000²
-        public ExampleSimulationManager(ISimulationUI ui) : base(new SimulationScene(1000, 1000), ui) 
+        public ExampleSimulationManager() : base(new SimulationScene(1000, 1000)) 
         {
             Instance = this;
 
@@ -101,65 +97,18 @@ namespace Windore.Simulations2D.TestApp
 
             if (SimulationScene.Age % 100 == 0) 
             {
-                Dictionary<string, DataCollector.Data> data = new Dictionary<string, DataCollector.Data>();
+                Data = new Dictionary<string, DataCollector.Data>();
 
                 collector.CollectData<ExampleSimulationObject>(SimulationScene.SimulationObjects
                     .Select(obj => (ExampleSimulationObject)obj))
                     .ToList()
-                    .ForEach(obj => data.Add(obj.Key, obj.Value));
+                    .ForEach(obj => Data.Add(obj.Key, obj.Value));
 
                 collector.CollectSingleValueData<ExampleSimulationManager>(this)
                     .ToList()
-                    .ForEach(obj => data.Add(obj.Key, obj.Value));
+                    .ForEach(obj => Data.Add(obj.Key, obj.Value));
 
-                logger.Log(data);
-
-                // Not the best way to update UI. A better version would be
-                // to make a new class for maniging the side panel UI
-                // but this is fine for this test project
-                Dispatcher.UIThread.InvokeAsync(() => 
-                {
-                    ((SimulationWindow)UI).SetSidePanelContent(new TextBlock() 
-                    {
-                        Margin = new Avalonia.Thickness(5),
-                        FontSize = 16,
-                        Text = "Test simulaton"
-                    });
-
-                    SimulationDataView view = new SimulationDataView() 
-                    {
-                        Data = data,
-                        HideSingleValueData = false,
-                        Rounding = true
-                    };
-
-                    ((SimulationWindow)UI).AddSidePanelContent(view);
-
-                    ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
-                    {
-                        Margin = new Avalonia.Thickness(5),
-                        FontSize = 16,
-                        Text = "Selected object"
-                    });
-
-                    if (Selected == null || Selected.IsRemoved) 
-                    {
-                        ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
-                        {
-                            Margin = new Avalonia.Thickness(5),
-                            Text = "No selection"
-                        });
-                    }
-                    else 
-                    {
-                        ((SimulationWindow)UI).AddSidePanelContent(new TextBlock() 
-                        {
-                            Margin = new Avalonia.Thickness(5),
-                            TextWrapping = Avalonia.Media.TextWrapping.Wrap,
-                            Text = $"Target Position: {Selected.TargetPosition}\nIs Infected: {Selected.IsInfected}\nJust A Number: {Selected.Number}"
-                        });
-                    }
-                });
+                logger.Log(Data);  
             }
         }
     }

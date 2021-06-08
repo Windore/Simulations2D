@@ -7,7 +7,7 @@ using Avalonia.Interactivity;
 
 namespace Windore.Simulations2D.GUI
 {
-    public class SimulationWindow : Window, ISimulationUI
+    public class SimulationWindow : Window
     {
         private SimulationManager manager;
         private SimulationView view;
@@ -28,9 +28,25 @@ namespace Windore.Simulations2D.GUI
                 layoutGrid.ColumnDefinitions = new ColumnDefinitions($"{sidePanel.Width},Auto,50");
                 UpdateLayout();
             }
-        } 
+        }
+        public SimulationManager SimulationManager 
+        {
+            get => manager;
+            set 
+            {
+                manager = value;
 
-        public SimulationWindow()
+                view.SimulationSceneWidth = manager.SimulationScene.Width;
+                view.SimulationSceneHeight = manager.SimulationScene.Height;
+            }
+        }
+
+        public SimulationWindow() 
+        {
+            throw new NotImplementedException();
+        }
+
+        public SimulationWindow(SimulationManager manager)
         {
             InitializeComponent();
             timer = new DispatcherTimer();
@@ -40,6 +56,7 @@ namespace Windore.Simulations2D.GUI
             layoutGrid.ColumnDefinitions = new ColumnDefinitions($"{sidePanel.Width},Auto,50");
             UpdateLayout();
 
+            SimulationManager = manager;
 
             view.SimulationObjects = new ObservableCollection<SimulationObject>();
             ShowScaledToView();
@@ -80,6 +97,7 @@ namespace Windore.Simulations2D.GUI
                 if (result == PopupWindow.PopupResult.Yes) 
                 {
                    manager.StopSimulation();
+                   timer.Stop();
                    isClosing = true;
                    Close();
                 }
@@ -88,6 +106,9 @@ namespace Windore.Simulations2D.GUI
                    popupVisible = false;
                 }
             };
+
+            manager.StartSimulation();
+            timer.Start();
         }
 
         private void InitializeComponent()
@@ -137,6 +158,7 @@ namespace Windore.Simulations2D.GUI
             if (manager.SimulationRunning)
             {
                 manager.StopSimulation();
+                timer.Stop();
                 pauseSwitchBtn.Content = "Resume";
 
                 // Update the window since often it will be just a little bit late.
@@ -145,6 +167,7 @@ namespace Windore.Simulations2D.GUI
             else
             {
                 manager.StartSimulation();
+                timer.Start();
                 pauseSwitchBtn.Content = "Pause";
             }
         }
@@ -174,14 +197,6 @@ namespace Windore.Simulations2D.GUI
             sidePanel.Children.Clear();
         }
 
-        public void SetSimulationManager(SimulationManager manager)
-        {
-            this.manager = manager;
-            
-            view.SimulationSceneWidth = manager.SimulationScene.Width;
-            view.SimulationSceneHeight = manager.SimulationScene.Height;
-        }
-
         public void ShowScaledToView() 
         {
             view.Height = scrollViewer.Height;
@@ -200,16 +215,6 @@ namespace Windore.Simulations2D.GUI
 
             scrollViewer.HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Visible;
             scrollViewer.VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Visible;
-        }
-
-        public void Start()
-        {
-            timer.Start();
-        }   
-
-        public void Stop()
-        {
-            timer.Stop();
         }
 
         private void Tick() 

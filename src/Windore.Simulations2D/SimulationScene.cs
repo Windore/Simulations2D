@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using Windore.Simulations2D.Util.SMath;
 
@@ -28,6 +30,11 @@ namespace Windore.Simulations2D
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the currently selected SimulationObject
+        /// </summary>
+        public SimulationObject? SelectedSimulationObject { get; internal set; }
 
         /// <summary>
         /// Gets the width of the SimulationScene
@@ -133,7 +140,7 @@ namespace Windore.Simulations2D
         /// <param name="range">The specified range</param>
         /// <param name="simulationObjectToIgnore">A SimulationObject not to be included in the returned list.</param>
         /// <returns>All SimulationObjects that are within the specified range from the specified point</returns>
-        internal List<SimulationObject> GetSimulationObjectsInRange(Point point, double range, SimulationObject simulationObjectToIgnore = null)
+        internal List<SimulationObject> GetSimulationObjectsInRange(Point point, double range, SimulationObject? simulationObjectToIgnore = null)
         {
             lock (simulationContainerLock) 
                 return container.GetInRange(point, range, simulationObjectToIgnore);

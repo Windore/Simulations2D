@@ -9,7 +9,6 @@ namespace Windore.Simulations2D
     /// </summary>
     public class SimulationManager
     {
-        private readonly ISimulationUI ui;
         private Thread simulationThread;
         private volatile bool simulationRunning = false;
         private int maxUps = 0;
@@ -20,11 +19,6 @@ namespace Windore.Simulations2D
         public SimulationScene SimulationScene { get; private set; }
 
         /// <summary>
-        /// Gets the current simulation UI
-        /// </summary>
-        protected ISimulationUI UI { get => ui; }
-
-        /// <summary>
         /// Gets whether SimulationScene is updated
         /// </summary>
         public bool SimulationRunning { get => simulationRunning; private set => simulationRunning = value; }
@@ -33,12 +27,9 @@ namespace Windore.Simulations2D
         /// Initializes a new SimulationManager instance
         /// </summary>
         /// <param name="scene">A SimulationScene to manage</param>
-        /// <param name="ui">An UI to update with the simulation</param>
-        public SimulationManager(SimulationScene scene, ISimulationUI ui)
+        public SimulationManager(SimulationScene scene)
         {
             SimulationScene = scene;
-            this.ui = ui;
-            ui.SetSimulationManager(this);
         }
 
         /// <summary>
@@ -53,7 +44,6 @@ namespace Windore.Simulations2D
             simulationThread = new Thread(new ThreadStart(UpdateLoop));
             simulationThread.Start();
             SimulationRunning = true;
-            ui.Start();
         }
 
         /// <summary>
@@ -64,7 +54,6 @@ namespace Windore.Simulations2D
             if (!SimulationRunning) return;
 
             SimulationRunning = false;
-            ui.Stop();
         }
 
         /// <summary>
