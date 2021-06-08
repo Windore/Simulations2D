@@ -78,7 +78,7 @@ namespace Windore.Simulations2D.TestApp
                 {
                     Margin = new Avalonia.Thickness(5),
                     TextWrapping = Avalonia.Media.TextWrapping.Wrap,
-                    Text = $"Target Position: {selectedEx.TargetPosition}\nIs Infected: {selectedEx.IsInfected}\nJust A Number: {selectedEx.Number}"
+                    Text = $"Target Position: {selectedEx.TargetPosition.ToRoundedString()}\nIs Infected: {selectedEx.IsInfected}\nJust A Number: {selectedEx.Number}"
                 });
             }
         }

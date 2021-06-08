@@ -57,9 +57,17 @@ namespace Windore.Simulations2D.Util.SMath
         /// <returns>a string that represents the current Point.</returns>
         public override string ToString()
         {
-            return string.Format("({0},{1})", X, Y);
+            return string.Format("({0}, {1})", X, Y);
         }
 
+        /// <summary>
+        /// Returns a string that represents the current Point rounded to three decimal digits.
+        /// </summary>
+        /// <returns>a string that represents the current Point rounded to three decimal digits.</returns>
+        public string ToRoundedString() 
+        {
+            return string.Format("({0}, {1})", Math.Round(X,3), Math.Round(Y,3));
+        }
 
         /// <summary>
         /// Determines whether the specified object is equal to the current Point.
