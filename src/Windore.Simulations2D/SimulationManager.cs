@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Windore.Simulations2D
 {
@@ -11,7 +13,18 @@ namespace Windore.Simulations2D
     {
         private Thread simulationThread;
         private volatile bool simulationRunning = false;
-        private int maxUps = 0;
+        private volatile int maxUps = 0;
+        private Queue<double> upsQueue = new Queue<double>();
+
+        /// <summary>
+        /// Gets or sets the maximum amount of updates per second. Zero or less indicated no limit.
+        /// </summary>
+        public int MaxUps { get => maxUps; set => maxUps = value; }
+
+        /// <summary>
+        /// Gets the current average updates per second value
+        /// </summary>
+        public double UPS { get; private set; }
 
         /// <summary>
         /// Gets the current managed SimulationScene
@@ -35,12 +48,10 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Starts the simulation
         /// </summary>
-        /// <param name="maxUps">Maximum number of updates per second. Value of 0 or negative indicates that no maximum is set.</param>
-        public void StartSimulation(int maxUps=0)
+        public void StartSimulation()
         {
             if (SimulationRunning) return;
 
-            this.maxUps = maxUps;
             simulationThread = new Thread(new ThreadStart(UpdateLoop));
             simulationThread.Start();
             SimulationRunning = true;
@@ -62,19 +73,16 @@ namespace Windore.Simulations2D
         protected virtual void BeforeUpdate() {}
 
         private void UpdateLoop()
-        {
-            bool isMaxUpsSet = maxUps > 0;
-            long updateLengthInMillis = 0;
+        {            
             Stopwatch stopwatch = new Stopwatch();
-
-            if (isMaxUpsSet) 
-            {
-                updateLengthInMillis = (long)Math.Round(1d / maxUps * 1000);
-                stopwatch.Start();
-            }
 
             while (SimulationRunning)
             {
+                stopwatch.Start();
+
+                int currentMaxUps = MaxUps;
+                bool isMaxUpsSet = currentMaxUps > 0;
+
                 BeforeUpdate();
                 SimulationScene.Update();
                 AfterUpdate();
@@ -82,15 +90,24 @@ namespace Windore.Simulations2D
                 // This is used to reduce the speed of the simulation.
                 if (isMaxUpsSet) 
                 {
-                    stopwatch.Stop();
+                    long updateLengthInMillis = (long)Math.Round(1d / currentMaxUps * 1000);
                     long timeLeft = updateLengthInMillis - stopwatch.ElapsedMilliseconds;
-
                     if (timeLeft > 0)
                         Thread.Sleep((int)timeLeft);
-
-                    stopwatch.Reset();
-                    stopwatch.Start();
                 }
+
+                double currentUps = 1000_000_000d / stopwatch.ElapsedTicks;
+
+                if (upsQueue.Count >= 50) 
+                {
+                    upsQueue.Dequeue();
+                }
+
+                upsQueue.Enqueue(currentUps);
+
+                UPS = upsQueue.Average();
+
+                stopwatch.Reset();
             }
         }
 

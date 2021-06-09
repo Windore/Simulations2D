@@ -4,6 +4,7 @@ using Avalonia.Threading;
 using System;
 using System.Collections.ObjectModel;
 using Avalonia.Interactivity;
+using Avalonia;
 
 namespace Windore.Simulations2D.GUI
 {
@@ -18,6 +19,8 @@ namespace Windore.Simulations2D.GUI
         private StackPanel sidePanel;
         private Grid layoutGrid;
         private StackPanel controlsStackPanel;
+        private TextBlock upsLimitTB;
+        private TextBlock currentUpsTB;
         public double SidePanelWidth 
         {
             get => sidePanel.Width;
@@ -60,8 +63,16 @@ namespace Windore.Simulations2D.GUI
 
             view.SimulationObjects = new ObservableCollection<SimulationObject>();
             ShowScaledToView();
-            scaleSwitchBtn.Content = "Show real size";
-            pauseSwitchBtn.Content = "Pause";
+            scaleSwitchBtn.Content = new TextBlock() 
+            {
+                Text = "Show real size",
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+            };
+            pauseSwitchBtn.Content = new TextBlock() 
+            {
+                Text = "Pause",
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+            };
             
             double prevWidth = Width;
             double prevHeight = Height;
@@ -99,6 +110,7 @@ namespace Windore.Simulations2D.GUI
                    manager.StopSimulation();
                    timer.Stop();
                    isClosing = true;
+                   closingDialog.Close();
                    Close();
                 }
                 else 
@@ -121,6 +133,8 @@ namespace Windore.Simulations2D.GUI
             sidePanel = this.Find<StackPanel>("sidePanel");
             layoutGrid = this.Find<Grid>("layoutGrid");
             controlsStackPanel = this.Find<StackPanel>("controlsStackPanel");
+            upsLimitTB = this.Find<TextBlock>("upsLimitTB");
+            currentUpsTB = this.Find<TextBlock>("currentUpsTB");
         }
 
         private void UpdateLayout() 
@@ -139,17 +153,48 @@ namespace Windore.Simulations2D.GUI
             }
         }
 
+        private void UpsLimitSliderValueChanged(object sender, AvaloniaPropertyChangedEventArgs e) 
+        {
+            // In case the manager isn't initialized yet
+            if (manager == null) return;
+
+            if (sender is Slider slider) 
+            {
+                if (e.Property != Slider.ValueProperty || manager.MaxUps == slider.Value) return; 
+
+                int value = (int)Math.Round(slider.Value);
+                if (value < 200) 
+                {
+                    upsLimitTB.Text = value.ToString();
+                    manager.MaxUps = value;
+                }
+                else 
+                {
+                    upsLimitTB.Text = "Unlimited.";
+                    manager.MaxUps = -1;
+                }
+            }
+        }
+
         private void SwitchViewMode(object sender, RoutedEventArgs e) 
         {
             if (view.ScaleToSize) 
             {
                 ShowInRealSize();
-                scaleSwitchBtn.Content = "Show scaled";
+                scaleSwitchBtn.Content = new TextBlock() 
+                {
+                    Text = "Show scaled",
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                };
             }
             else 
             {
                 ShowScaledToView();
-                scaleSwitchBtn.Content = "Show real size";
+                scaleSwitchBtn.Content = new TextBlock() 
+                {
+                    Text = "Show real size",
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                };
             }
         }
 
@@ -159,7 +204,11 @@ namespace Windore.Simulations2D.GUI
             {
                 manager.StopSimulation();
                 timer.Stop();
-                pauseSwitchBtn.Content = "Resume";
+                pauseSwitchBtn.Content = new TextBlock() 
+                {
+                    Text = "Resume",
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                };
 
                 // Update the window since often it will be just a little bit late.
                 Tick();
@@ -168,7 +217,11 @@ namespace Windore.Simulations2D.GUI
             {
                 manager.StartSimulation();
                 timer.Start();
-                pauseSwitchBtn.Content = "Pause";
+                pauseSwitchBtn.Content = new TextBlock() 
+                {
+                    Text = "Pause",
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                };
             }
         }
 
@@ -220,6 +273,7 @@ namespace Windore.Simulations2D.GUI
         private void Tick() 
         {
             view.SimulationObjects = new ObservableCollection<SimulationObject>(manager.SimulationScene.SimulationObjects);
+            currentUpsTB.Text = $"Updates per second: {Math.Round(manager.UPS)}";
         }
     }
 }
