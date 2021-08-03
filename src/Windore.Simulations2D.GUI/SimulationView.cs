@@ -85,7 +85,7 @@ namespace Windore.Simulations2D.GUI
 
                 Shape rendered = obj.Shape;
                 Color clr = new Color(obj.Color.Alpha, obj.Color.Red, obj.Color.Green, obj.Color.Blue);
-                Rect rect = new Rect(rendered.Position.X * xScale, rendered.Position.Y * yScale, rendered.Width * sizeScale, rendered.Height * sizeScale);
+                Rect rect = new Rect((rendered.Position.X - rendered.Width / 2) * xScale, (rendered.Position.Y - rendered.Height / 2) * yScale , rendered.Width * sizeScale, rendered.Height * sizeScale);
                 SolidColorBrush brush = new SolidColorBrush(clr);
 
                 if (rendered.IsEllipse) 
