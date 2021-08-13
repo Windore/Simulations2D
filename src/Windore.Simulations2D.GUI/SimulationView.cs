@@ -45,7 +45,6 @@ namespace Windore.Simulations2D.GUI
                 {
                     SelectedSimulationObject = obj;
                     obj.OnSelect();
-                    return;
                 }
             }
         }
