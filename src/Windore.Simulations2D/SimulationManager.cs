@@ -90,13 +90,13 @@ namespace Windore.Simulations2D
                 // This is used to reduce the speed of the simulation.
                 if (isMaxUpsSet) 
                 {
-                    long updateLengthInMillis = (long)Math.Round(1d / currentMaxUps * 1000);
+                    long updateLengthInMillis = (long)Math.Round(1d / currentMaxUps * 1000d);
                     long timeLeft = updateLengthInMillis - stopwatch.ElapsedMilliseconds;
                     if (timeLeft > 0)
                         Thread.Sleep((int)timeLeft);
                 }
 
-                double currentUps = 1000_000_000d / stopwatch.ElapsedTicks;
+                double currentUps = 10_000_000d / stopwatch.ElapsedTicks;
 
                 if (upsQueue.Count >= 50) 
                 {

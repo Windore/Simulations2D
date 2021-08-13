@@ -136,5 +136,26 @@ namespace Windore.Simulations2D.Data
 
             return data;
         }
+
+        /// <summary>
+        /// Gets all DataPoint titles in a single type
+        /// </summary>
+        /// <param name="type">The type in which to get DataPoint titles</param>
+        public List<string> GetTypeDataPointTitles(Type type) 
+        {
+            List<string> titles = new List<string>();
+
+            foreach (PropertyInfo property in type.GetProperties())
+            {
+                DataPointAttribute attr = property.GetCustomAttribute<DataPointAttribute>();
+                if (attr != null)
+                {
+                    string name = property.GetCustomAttribute<DataPointAttribute>().Name;
+                    titles.Add(name);
+                }
+            }
+
+            return titles;
+        }
     }
 }
