@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Windore.Simulations2D.GUI.SimulationDataView" Name="uControl">
-  <Grid ColumnDefinitions="2*,1*,1*" Width="{Binding #uControl.Width}" Height="{Binding #uControl.Height}" Margin="5" Name="grid">
-  </Grid>
+  <ScrollViewer>
+    <Grid ColumnDefinitions="2*,1*,1*" Width="{Binding #uControl.Width}" Height="{Binding #uControl.Height}" Margin="5" Name="grid">
+    </Grid>
+  </ScrollViewer>
 </UserControl>

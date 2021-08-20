@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Windore.Simulations2D.Data;
 using System.Text;
 using System;
+using Avalonia.Threading;
 
 namespace Windore.Simulations2D.GUI
 {
@@ -20,8 +21,8 @@ namespace Windore.Simulations2D.GUI
                 CreateGrid();
             }
         }
-        public bool HideSingleValueData { get; set; }
-        public bool Rounding { get; set; }
+        public bool HideSingleValueData { get; set; } = false;
+        public bool Rounding { get; set; } = true;
 
         public SimulationDataView()
         {

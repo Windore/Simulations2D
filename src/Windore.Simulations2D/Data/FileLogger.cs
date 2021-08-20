@@ -11,7 +11,7 @@ namespace Windore.Simulations2D.Data
     /// </summary>
     public class FileLogger
     {
-        private const string SEPERATOR = "/t";
+        private const string SEPERATOR = "\t";
         private const string FILE_EXTENSION = ".tsv";
         private int logCount = 0;
         private List<string> logTitles = new List<string>();

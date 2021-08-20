@@ -31,7 +31,17 @@ namespace Windore.Simulations2D.Data
             /// <summary>
             /// Gets the average value of the data collected from multiple sources
             /// </summary>
-            public double Average { get => valuePoints.Average(); }
+            public double Average
+            {
+                get
+                {
+                    if (valuePoints.Count == 0)
+                    {
+                        return 0;
+                    }
+                    return valuePoints.Average();
+                }
+            }
             /// <summary>
             /// Gets the standard deviation of the data collected from multiple sources
             /// </summary>

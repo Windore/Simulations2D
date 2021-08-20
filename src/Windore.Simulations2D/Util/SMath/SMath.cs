@@ -30,6 +30,8 @@ namespace Windore.Simulations2D.Util.SMath
         /// <returns>The standard deviation of the given numbers</returns>
         public static double StandardDeviation(params double[] numbers)
         {
+            if (numbers.Length == 0) return 0;
+
             double avg = numbers.Average();
             double sum = 0;
             foreach (double num in numbers)
