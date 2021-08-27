@@ -87,20 +87,18 @@ namespace Windore.Simulations2D.GUI
                 Rect rect = new Rect((rendered.Position.X - rendered.Width / 2) * xScale, (rendered.Position.Y - rendered.Height / 2) * yScale , rendered.Width * sizeScale, rendered.Height * sizeScale);
                 SolidColorBrush brush = new SolidColorBrush(clr);
 
+                double outlineWidth = 1;
+                if (obj == SelectedSimulationObject)
+                    outlineWidth = 5;
+
                 if (rendered.IsEllipse) 
                 {
-                    if (obj == SelectedSimulationObject)
-                    {
-                        context.DrawGeometry(Brushes.Black, new Pen(Brushes.Black, 5), new EllipseGeometry(rect));
-                    }
+                    context.DrawGeometry(Brushes.Black, new Pen(Brushes.Black, outlineWidth), new EllipseGeometry(rect));
                     context.DrawGeometry(brush, new Pen(brush), new EllipseGeometry(rect));
                 } 
                 else
                 {
-                    if (obj == SelectedSimulationObject)
-                    {
-                        context.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 5), rect);
-                    }
+                    context.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, outlineWidth), rect);
                     context.FillRectangle(brush, rect);
                 }
             }
