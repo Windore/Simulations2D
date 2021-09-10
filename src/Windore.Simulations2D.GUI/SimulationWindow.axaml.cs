@@ -49,7 +49,7 @@ namespace Windore.Simulations2D.GUI
             throw new NotImplementedException();
         }
 
-        public SimulationWindow(SimulationManager manager)
+        public SimulationWindow(SimulationManager manager, bool isPaused=false)
         {
             InitializeComponent();
             timer = new DispatcherTimer();
@@ -121,6 +121,9 @@ namespace Windore.Simulations2D.GUI
 
             manager.StartSimulation();
             timer.Start();
+
+            if (isPaused)
+                SwitchPause(null,null);
         }
 
         private void InitializeComponent()
