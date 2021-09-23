@@ -76,15 +76,13 @@ namespace Windore.Simulations2D.GUI
                 yScale = Height / SimulationSceneHeight;
             }
 
-            double sizeScale = (xScale + yScale) / 2d;
-
             foreach (SimulationObject obj in SimulationObjects) 
             {
                 if (obj.IsRemoved) continue;
 
                 Shape rendered = obj.Shape;
                 Color clr = new Color(obj.Color.Alpha, obj.Color.Red, obj.Color.Green, obj.Color.Blue);
-                Rect rect = new Rect((rendered.Position.X - rendered.Width / 2) * xScale, (rendered.Position.Y - rendered.Height / 2) * yScale , rendered.Width * sizeScale, rendered.Height * sizeScale);
+                Rect rect = new Rect((rendered.Position.X - rendered.Width / 2) * xScale, (rendered.Position.Y - rendered.Height / 2) * yScale , rendered.Width * xScale, rendered.Height * yScale);
                 SolidColorBrush brush = new SolidColorBrush(clr);
 
                 double outlineWidth = 1;
