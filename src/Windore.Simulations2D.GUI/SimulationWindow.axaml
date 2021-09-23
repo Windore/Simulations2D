@@ -10,13 +10,13 @@
     <StackPanel Grid.Column="0" Name="sidePanel" Width="300">
     </StackPanel>
     <StackPanel Orientation="Vertical" Name="controlsStackPanel" Grid.Column="1">
-      <StackPanel Orientation="Horizontal" Spacing="10">
+      <StackPanel Orientation="Horizontal" Spacing="10" Height="50">
         <Button Click="SwitchViewMode" Name="scaleSwitchBtn" Width="115"></Button>
         <Button Click="SwitchPause" Name="pauseSwitchBtn" Width="70"></Button>
         <Button Click="AdvanceOneUpdate">Advance one update</Button>
         <TextBlock Name="currentUpsTB" Height="18" Text="Updates per second: 0" Width="185"/>
         <TextBlock Height="18" Text="Updates per second limit:" Width="170"/>
-        <Slider VerticalAlignment="Center" PropertyChanged="UpsLimitSliderValueChanged" Value="200" Minimum="30" Maximum="200" Height="60" Width="100"/>
+        <Slider VerticalAlignment="Center" PropertyChanged="UpsLimitSliderValueChanged" Value="200" Minimum="30" Maximum="200" Width="100"/>
         <TextBlock Height="18" Name="upsLimitTB" Text="Unlimited" Width="75"/>
       </StackPanel>
       <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Name="scrollViewer">
