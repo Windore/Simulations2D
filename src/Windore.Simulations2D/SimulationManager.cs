@@ -96,7 +96,7 @@ namespace Windore.Simulations2D
                         Thread.Sleep((int)timeLeft);
                 }
 
-                double currentUps = 10_000_000d / stopwatch.ElapsedTicks;
+                double currentUps = 1d / stopwatch.Elapsed.TotalSeconds;
 
                 if (upsQueue.Count >= 50) 
                 {
