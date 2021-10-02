@@ -232,7 +232,9 @@ namespace Windore.Simulations2D.GUI
         {
             if (!manager.SimulationRunning) 
             {
+                manager.BeforeUpdate();
                 manager.SimulationScene.Update();
+                manager.AfterUpdate();
                 Tick();
             }
         }

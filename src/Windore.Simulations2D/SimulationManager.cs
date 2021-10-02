@@ -70,7 +70,7 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Occurs every time before calling update
         /// </summary>
-        protected virtual void BeforeUpdate() {}
+        public virtual void BeforeUpdate() {}
 
         private void UpdateLoop()
         {            
@@ -114,6 +114,6 @@ namespace Windore.Simulations2D
         /// <summary>
         /// Occurs every time after calling update
         /// </summary>
-        protected virtual void AfterUpdate() {}
+        public virtual void AfterUpdate() {}
     }
 }
