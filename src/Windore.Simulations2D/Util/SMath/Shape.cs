@@ -106,9 +106,13 @@ namespace Windore.Simulations2D.Util.SMath
                     rectangle = this;
                 }
 
-                // Scale the ellipse to a circle. Figuring out if a rectangle overlaps a circle is easy. The rectangle is scaled as well. 
-                double xyRelation = ellipse.Width / ellipse.Height;
-                return SMath.CircleOverlapsRectangle(new Point(ellipse.Position.X, ellipse.Position.Y * xyRelation), ellipse.Width, new Point(rectangle.Position.X, rectangle.Position.Y * xyRelation), rectangle.Width, rectangle.Height * xyRelation);
+                double relation = ellipse.Width / ellipse.Height;
+                // Scale the ellipse to a circle
+                Shape circle = new Shape(new Point(ellipse.Position.X, ellipse.Position.Y * relation), ellipse.Width, ellipse.Height * relation, true);
+                // Rectangle needs to be scaled as well
+                Shape rect = new Shape(new Point(rectangle.Position.X, rectangle.Position.Y * relation), rectangle.Width, rectangle.Height * relation, false);
+
+                return SMath.CircleOverlapsRectangle(circle.Position, circle.Width / 2d, rect.Position, rect.Width, rect.Height);
             }
         }
 
