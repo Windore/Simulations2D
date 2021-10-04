@@ -16,7 +16,7 @@
         <Button Click="AdvanceOneUpdate">Advance one update</Button>
         <TextBlock Name="currentUpsTB" Height="18" Text="Updates per second: 0" Width="185"/>
         <TextBlock Height="18" Text="Updates per second limit:" Width="170"/>
-        <Slider VerticalAlignment="Center" PropertyChanged="UpsLimitSliderValueChanged" Value="200" Minimum="30" Maximum="200" Width="100"/>
+        <Slider VerticalAlignment="Center" PropertyChanged="UpsLimitSliderValueChanged" Value="200" Minimum="1" Maximum="200" Width="150"/>
         <TextBlock Height="18" Name="upsLimitTB" Text="Unlimited" Width="75"/>
       </StackPanel>
       <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Name="scrollViewer">
