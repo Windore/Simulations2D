@@ -8,16 +8,16 @@ using System.Linq;
 namespace Windore.Simulations2D.TestApp
 {
     // Custom SimulationManagers are not necessary but using them allows doing more things
-    class ExampleSimulationManager : SimulationManager 
+    class ExampleSimulationManager : SimulationManager
     {
         private static ExampleSimulationManager? ins;
         // A singelton is used in this example to make the SimulationManager accessible everywhere. 
         // This is not necessarily the best way to do this, but it's used here for simplicity
-        public static ExampleSimulationManager Instance 
+        public static ExampleSimulationManager Instance
         {
-            get 
+            get
             {
-                if (ins == null) 
+                if (ins == null)
                 {
                     throw new System.Exception();
                 }
@@ -30,7 +30,7 @@ namespace Windore.Simulations2D.TestApp
 
         // This will be used to count the number of infected SimulationObjects in the scene
         [DataPoint("InfectedCounter")]
-        public int InfectedCounter { get; set;}
+        public int InfectedCounter { get; set; }
 
         [DataPoint("SimulationObjectsCount")]
         public int SimulationObjectsCount { get => SimulationScene.SimulationObjects.Count; }
@@ -43,13 +43,17 @@ namespace Windore.Simulations2D.TestApp
 
         int qty = 0;
         double avgUps = 0;
+
+        // A File logger is used to log simulation data to a file. All titles that are going to be logged are listed need to be added to the constructor parameters.
         private FileLogger logger = new FileLogger(Path.Combine(Path.GetTempPath(), "test-simulation-log"), "Age", "SimulationObjectsCount", "InfectedCounter", "JustANumber");
+        // Collecting data from the simulation is easy with a data collector
+        // More on data collection later
         private DataCollector collector = new DataCollector();
 
         Stopwatch s = new Stopwatch();
 
         // Constructor calls the base costructor and creates a new SimulationScene with a size of 1000²
-        public ExampleSimulationManager() : base(new SimulationScene(1000, 1000)) 
+        public ExampleSimulationManager() : base(new SimulationScene(1000, 1000))
         {
             Instance = this;
 
@@ -59,9 +63,9 @@ namespace Windore.Simulations2D.TestApp
             SimulationRandom = new SRandom(50626451);
 
             // 1000 healthy custom SimulationObjects are added to the scene
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
                 SimulationScene.Add(new ExampleSimulationObject(false));
-            
+
             /// And 100 infected custom SimulationObjects are added to the scene
             for (int i = 0; i < 100; i++)
                 SimulationScene.Add(new ExampleSimulationObject(true));
@@ -69,14 +73,14 @@ namespace Windore.Simulations2D.TestApp
         }
 
         // This method runs every time before an update in the simulation. 
-        protected override void BeforeUpdate() 
+        public override void BeforeUpdate()
         {
             // Reset the infected counter
             InfectedCounter = 0;
         }
 
         // There is a AfterUpdate method as well.
-        protected override void AfterUpdate() 
+        public override void AfterUpdate()
         {
             // stopwatch is used to get the milliseconds between updates
             s.Stop();
@@ -84,7 +88,7 @@ namespace Windore.Simulations2D.TestApp
             qty++;
             double ups = 1d / (elapsed / 1000d);
 
-            if (qty == 1000) 
+            if (qty == 1000)
             {
                 avgUps = ups;
                 qty = 1;
@@ -95,20 +99,24 @@ namespace Windore.Simulations2D.TestApp
             s.Reset();
             s.Start();
 
-            if (SimulationScene.Age % 100 == 0) 
+            if (SimulationScene.Age % 100 == 0)
             {
+                // Data collected from a simulation is always saved as an dictionary
                 Data = new Dictionary<string, DataCollector.Data>();
 
-                collector.CollectData<ExampleSimulationObject>(SimulationScene.SimulationObjects
-                    .Select(obj => (ExampleSimulationObject)obj))
+                // Notice that data needs to be collected only from ExampleSimulationObjects so those are selected from all simulation objects
+                collector.CollectData<ExampleSimulationObject>(SimulationScene.SimulationObjects.Select(obj => (ExampleSimulationObject)obj))
+                    // This is used to add collected data to a existing dictionary 
                     .ToList()
                     .ForEach(obj => Data.Add(obj.Key, obj.Value));
 
+                // Data can be collected from a single source as well
                 collector.CollectSingleValueData<ExampleSimulationManager>(this)
                     .ToList()
                     .ForEach(obj => Data.Add(obj.Key, obj.Value));
 
-                logger.Log(Data);  
+                // Write the logged data to a file using a logger
+                logger.Log(Data);
             }
         }
     }
